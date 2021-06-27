@@ -28,7 +28,7 @@ OBJ_DIR = obj
 MKDIR = mkdir
 DD = dd
 
-$(OUTPUT_DIR)/ddragon-diag.bin: $(DIR) $(OBJ_DIR) $(OBJS)
+$(OUTPUT_DIR)/ddragon-diag.bin: $(DIR) $(OBJ_DIR) $(OUTPUT_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(OUTPUT_DIR)/ddragon-diag.bin $(OBJS)
 	@echo
 	@ls -l $(OUTPUT_DIR)/ddragon-diag.bin
@@ -83,7 +83,6 @@ $(OBJ_DIR)/video_dac_tests.o: video_dac_tests.asm $(INCS)
 
 $(OBJ_DIR)/work_ram_tests.o: work_ram_tests.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) -o $(OBJ_DIR)/work_ram_tests.o work_ram_tests.asm
-
 
 $(OUTPUT_DIR):
 	$(MKDIR) $(OUTPUT_DIR)
