@@ -67,6 +67,9 @@ auto_work_ram_tests_passed:
 
 		jsr	automatic_tests
 
+		lda	#$0c
+		sta	REG_SOUND
+
 		jsr	fg_clear_with_header
 
 		FG_XY	0,5
