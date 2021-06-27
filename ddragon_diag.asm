@@ -50,12 +50,25 @@ _start:
 		ldb	#'-'
 		JRU	fg_fill_line
 
+		lda	INPUT_EXTRA
+		anda	#C_P1_BUTTON			; if c button pressed we will skip auto tests
+		beq	auto_work_ram_tests_passed
+
 		; jmp to the work ram tests, we can't
 		; use jsr since the work ram/stack maybe
 		; bad
 		jmp	auto_work_ram_tests
 
 auto_work_ram_tests_passed:
+
+		; init ram vars
+		clr	g_p1_input_raw
+		clr	g_p1_input_edge
+		clr	g_p2_input_raw
+		clr	g_p2_input_edge
+		clr	g_extra_input_raw
+		clr	g_extra_input_edge
+		clr	g_main_menu_cursor
 
 		; at this point we consider work ram good
 		; init stack, enable ints
@@ -64,6 +77,10 @@ auto_work_ram_tests_passed:
 
 		; ack nmi so we start getting them again
 		sta	ACK_NMI
+
+		lda	INPUT_EXTRA
+		anda	#C_P1_BUTTON
+		beq	.skip_auto_tests
 
 		jsr	automatic_tests
 
@@ -80,21 +97,13 @@ auto_work_ram_tests_passed:
 		ldy	#STR_A_MAIN_MENU
 		JRU	fg_print_string
 
-		; init ram vars
-		clr	g_p1_input_raw
-		clr	g_p1_input_edge
-		clr	g_p2_input_raw
-		clr	g_p2_input_edge
-		clr	g_extra_input_raw
-		clr	g_extra_input_edge
-		clr	g_main_menu_cursor
-
 	.loop_wait_a_button:
 		jsr	input_update
 		lda	g_p1_input_edge
 		bita	#A_BUTTON
 		beq	.loop_wait_a_button
 
+	.skip_auto_tests:
 		jsr	main_menu
 		STALL
 
