@@ -27,7 +27,7 @@ auto_pal_ext_ram_tests:
 
 	.mem_tester_passed:
 		pshs	a
-		SSU	palette_init
+		JRU	palette_init
 		puls	a
 		rts
 

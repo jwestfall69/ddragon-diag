@@ -66,7 +66,7 @@ mem_tester_output:
 		sta	0,x	; write our incrementing value
 
 		ldw	#$1ff	; wait a little bit
-		SSU	delay
+		JRU	delay
 
 		lde	,x+	; read it back
 		cmpe	#$ff

@@ -77,7 +77,7 @@ print_error:
 print_error_string:
 		FG_XY	0,5
 		ldy	g_error_code_description
-		SSU	fg_print_string
+		JRU	fg_print_string
 		STALL
 		rts
 
@@ -89,31 +89,31 @@ print_error_string:
 print_error_ram_data_fail:
 		FG_XY	0,5
 		ldy	g_error_code_description
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,7
 		ldy	#STR_ADDRESS
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,8
 		ldy	#STR_EXPECTED
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,9
 		ldy	#STR_ACTUAL
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	12,7
 		ldd	g_mt_error_address
-		SSU	fg_print_hex_word
+		JRU	fg_print_hex_word
 
 		FG_XY	14,8
 		lda	g_mt_error_expected
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 
 		FG_XY	14,9
 		lda	g_mt_error_actual
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 		rts
 
 
@@ -125,23 +125,23 @@ print_error_ram_address_fail:
 
 		FG_XY	0,5
 		ldy	g_error_code_description
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,7
 		ldy	#STR_EXPECTED
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,8
 		ldy	#STR_ACTUAL
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	12,7
 		lda	g_mt_error_expected
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 
 		FG_XY	12,8
 		lda	g_mt_error_actual
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 		rts
 
 ; prints the invalid error code number
@@ -152,15 +152,15 @@ print_error_ram_address_fail:
 ;  VALUE 12
 print_error_invalid:
 		FG_XY	7,7
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 
 		FG_XY	0,5
 		ldy	#STR_INVALID_ERROR_CODE
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,7
 		ldy	#STR_VALUE
-		SSU	fg_print_string
+		JRU	fg_print_string
 		rts
 
 STR_FG_RAM_DEAD_OUTPUT:		string "FG RAM DEAD OUTPUT"

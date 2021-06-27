@@ -31,7 +31,7 @@ auto_obj_ram_tests:
 		ldx	#OBJ_RAM_START
 		ldw	#OBJ_RAM_SIZE
 		clra
-		SSU	ram_fill
+		JRU	ram_fill
 
 		puls	a
 		rts

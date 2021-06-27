@@ -11,7 +11,7 @@
 
 ; foreground video ram test, which is on the
 ; same ram chip as work ram.  If the chip has
-; issues will likely trigger the work ram tests
+; ijrues will likely trigger the work ram tests
 auto_fg_ram_tests:
 
 		ldd	#FG_RAM_START

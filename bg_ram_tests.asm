@@ -30,7 +30,7 @@ auto_bg_ram_tests:
 		ldx	#BG_RAM_START
 		ldw	#BG_RAM_SIZE
 		clra
-		SSU	ram_fill
+		JRU	ram_fill
 		puls	a
 		rts
 

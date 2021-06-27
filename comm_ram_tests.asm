@@ -44,7 +44,7 @@ auto_comm_ram_tests:
 		ldx	#COMM_RAM_START
 		ldw	#COMM_RAM_SIZE
 		clra
-		SSU	ram_fill
+		JRU	ram_fill
 
 
 	; this works around hardware vs mame

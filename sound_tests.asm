@@ -14,7 +14,7 @@ manual_sound_tests:
 		; static text
 		FG_XY	2,5
 		ldy	#STR_SND_NUM
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		ldb	#2		; sound number, 0/1 arent a sound.
 
@@ -64,7 +64,7 @@ manual_sound_tests:
 		tfr	b,a
 
 		pshs	b
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 		puls	b
 
 		jmp	.loop_input

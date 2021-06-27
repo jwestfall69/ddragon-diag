@@ -26,29 +26,29 @@ _start:
 		; ack the nmi.  This will allow us to use the
 		; stack register as temp storage.
 		ldw	#$1fff
-		SSU	delay
+		JRU	delay
 
 		; zero out pal/pal ext and fg ram, which are adjacent
 		lda	#0
 		ldx	#PAL_RAM_START
 		ldw	#(PAL_RAM_SIZE + PAL_EXT_RAM_SIZE + FG_RAM_SIZE)
-		SSU	ram_fill
+		JRU	ram_fill
 
 		; zero out bg and sprite ram, which are adjacent
 		lda	#0
 		ldx	#OBJ_RAM_START
 		ldw	#(OBJ_RAM_SIZE + BG_RAM_SIZE)
-		SSU	ram_fill
+		JRU	ram_fill
 
-		SSU	palette_init
+		JRU	palette_init
 
 		FG_XY	0,1
 		ldy	#STR_HEADER
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,2
 		ldb	#'-'
-		SSU	fg_fill_line
+		JRU	fg_fill_line
 
 		; jmp to the work ram tests, we can't
 		; use jsr since the work ram/stack maybe
@@ -71,11 +71,11 @@ auto_work_ram_tests_passed:
 
 		FG_XY	0,5
 		ldy	#STR_ALL_TESTS_PASSED
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,20
 		ldy	#STR_A_MAIN_MENU
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		; init ram vars
 		clr	g_p1_input_raw
@@ -125,7 +125,7 @@ automatic_tests:
 		pshs	y,a,b
 		FG_XY	3,4
 		ldy	0,y
-		SSU	fg_print_string
+		JRU	fg_print_string
 		puls	y,a,b
 
 		pshs	y,a,b
@@ -149,7 +149,7 @@ automatic_tests:
 		jsr	print_error
 		puls	a
 
-		SSU	play_error_code
+		JRU	play_error_code
 		STALL
 		rts
 
@@ -219,7 +219,7 @@ main_menu:
 		pshs	y
 		FG_XY	0,3
 		ldy	0,y		; menu item's string
-		SSU	fg_print_string
+		JRU	fg_print_string
 		puls	y
 
 		jsr	[2,y]		; call the menu item's function
@@ -264,7 +264,7 @@ main_menu_draw:
 	.loop_next_item:
 		pshs	y,d,x
 		ldy	0,y
-		SSU	fg_print_string
+		JRU	fg_print_string
 		puls	y,d,x
 
 		leax	FG_TILES_PER_ROW,x

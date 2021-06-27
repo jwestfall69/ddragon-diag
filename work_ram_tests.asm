@@ -12,35 +12,35 @@
 
 auto_work_ram_tests:
 
-		SSU	work_ram_output_test
+		JRU	work_ram_output_test
 		tsta
 		lbne	work_ram_output_failed
 
-		SSU	work_ram_writable_test
+		JRU	work_ram_writable_test
 		tsta
 		lbne	work_ram_writable_failed
 
 		lde	#0
-		SSU	work_ram_data_test
+		JRU	work_ram_data_test
 		tsta
 		lbne	work_ram_data_failed
 
 		lde	#$55
-		SSU	work_ram_data_test
+		JRU	work_ram_data_test
 		tsta
 		lbne	work_ram_data_failed
 
 		lde	#$aa
-		SSU	work_ram_data_test
+		JRU	work_ram_data_test
 		tsta
 		lbne	work_ram_data_failed
 
 		lde	#$ff
-		SSU	work_ram_data_test
+		JRU	work_ram_data_test
 		tsta
 		lbne	work_ram_data_failed
 
-		SSU	work_ram_address_test
+		JRU	work_ram_address_test
 		tsta
 		lbne	work_ram_address_failed
 
@@ -56,7 +56,7 @@ auto_work_ram_tests:
 ; specific 245 are not outputing anything.
 ; returns
 ;  a = (0 = pass, 1 = fail)
-work_ram_output_test_ssu:
+work_ram_output_test_jru:
 		ldx	#WORK_RAM_START
 		tfr	u,y		; backup u so we can do a nested delay call
 		lda	#1		; counter and value we will write
@@ -65,7 +65,7 @@ work_ram_output_test_ssu:
 		sta	0,x		; write our incrementing value
 
 		ldw	#$1ff		; wait a little bit
-		SSU	delay
+		JRU	delay
 
 		lde	,x+		; read it back
 		cmpe	#$ff
@@ -77,18 +77,18 @@ work_ram_output_test_ssu:
 
 		tfr	y,u
 		lda	#1
-		SSU_RETURN
+		JRU_RETURN
 
 	.test_passed:
 		tfr	y,u
 		clra
-		SSU_RETURN
+		JRU_RETURN
 
 ; Read a byte from ram, write !byte back, then re-read it. If
 ; the re-read byte is the original byte ram is unwritable.
 ; returns
 ;  a = (0 = pass, 1 = fail)
-work_ram_writable_test_ssu:
+work_ram_writable_test_jru:
 		ldx	#WORK_RAM_START
 		lda	0,x
 		tfr	a,b
@@ -99,11 +99,11 @@ work_ram_writable_test_ssu:
 		beq	.test_failed
 
 		clra
-		SSU_RETURN
+		JRU_RETURN
 
 	.test_failed:
 		lda	#1
-		SSU_RETURN
+		JRU_RETURN
 
 ; This tests the supplied byte pattern byte pattern
 ; params
@@ -112,7 +112,7 @@ work_ram_writable_test_ssu:
 ;   a = (0 = pass, 1 = fail)
 ;   b = fail data
 ;   x = fail address
-work_ram_data_test_ssu:
+work_ram_data_test_jru:
 		ldx	#WORK_RAM_START
 		ldy	#WORK_RAM_SIZE
 
@@ -129,19 +129,19 @@ work_ram_data_test_ssu:
 		bne	.loop_next_address
 		clra
 
-		SSU_RETURN
+		JRU_RETURN
 
 	.test_failed:
 		lda	#1
 		tfr	f,b
-		SSU_RETURN
+		JRU_RETURN
 
 
 ; return
 ;   a = (0 = pass, 1 = fail)
 ;   e = actual value
 ;   b = expected value
-work_ram_address_test_ssu:
+work_ram_address_test_jru:
 		ldx	#WORK_RAM_START
 		lda	#WORK_RAM_ADDRESS_LINES
 
@@ -183,31 +183,31 @@ work_ram_address_test_ssu:
 		bpl	.loop_read_next_address
 
 		lda	#0
-		SSU_RETURN
+		JRU_RETURN
 
 	.test_failed:
 		ldb	d,x
 		tfr	f,e
 		lda	#1
-		SSU_RETURN
+		JRU_RETURN
 
 
 work_ram_output_failed:
 		FG_XY	0,5
 		ldy	#STR_WORK_RAM_DEAD_OUTPUT
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		lda	#EC_WORK_RAM_DEAD_OUTPUT
-		SSU	play_error_code
+		JRU	play_error_code
 		STALL
 
 work_ram_writable_failed:
 		FG_XY	0,5
 		ldy	#STR_WORK_RAM_UNWRITABLE
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		lda	#EC_WORK_RAM_UNWRITABLE
-		SSU	play_error_code
+		JRU	play_error_code
 		STALL
 
 ; I believe there might be a little risk below
@@ -225,35 +225,35 @@ work_ram_data_failed:
 		tfr	d,s			; save expected + actual to stack register
 		tfr	x,d			; failed address to d
 		FG_XY	10,7
-		SSU	fg_print_hex_word
+		JRU	fg_print_hex_word
 
 		tfr	s,d			; restore expected + bad data
 		FG_XY	12,8
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 
 		tfr	s,d			; restore expected + bad again
 		exg	a,b			; bad data
 		FG_XY	12,9
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 
 		FG_XY	0,5
 		ldy	#STR_WORK_RAM_DATA
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,7
 		ldy	#STR_ADDRESS
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,8
 		ldy	#STR_EXPECTED
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,9
 		ldy	#STR_ACTUAL
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		lda	#EC_WORK_RAM_DATA
-		SSU	play_error_code
+		JRU	play_error_code
 
 		STALL
 
@@ -264,26 +264,26 @@ work_ram_address_failed:
 		tfr	f,s			; save expected to stack register
 		tfr	b,a			; actual
 		FG_XY	12,8
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 
 		tfr	s,a			; restore expected
 		FG_XY	12,7
-		SSU	fg_print_hex_byte
+		JRU	fg_print_hex_byte
 
 		FG_XY	0,5
 		ldy	#STR_WORK_RAM_ADDRESS
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,7
 		ldy	#STR_EXPECTED
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,8
 		ldy	#STR_ACTUAL
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		lda	#EC_WORK_RAM_ADDRESS
-		SSU	play_error_code
+		JRU	play_error_code
 
 		STALL
 

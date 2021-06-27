@@ -113,11 +113,11 @@ draw_screen:
 
 		FG_XY	8,4
 		ldy	#STR_VIDEO_DAC_TESTS
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	7,6
 		ldy	#STR_BIT_HEADER
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	6,7
 		ldw	#RED_TILE
@@ -137,11 +137,11 @@ draw_screen:
 
 		FG_XY	5,25
 		ldy	#STR_A_FULLSCREEN
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	5,26
 		ldy	#STR_C_MAIN_MENU
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		rts
 

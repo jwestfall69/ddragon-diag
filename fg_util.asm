@@ -4,11 +4,11 @@
 	include "macros.inc"
 
 	global	fg_clear_with_header
-	global	fg_fill_line_ssu
-	global	fg_print_bits_byte_ssu
-	global	fg_print_hex_byte_ssu
-	global	fg_print_hex_word_ssu
-	global	fg_print_string_ssu
+	global	fg_fill_line_jru
+	global	fg_print_bits_byte_jru
+	global	fg_print_hex_byte_jru
+	global	fg_print_hex_word_jru
+	global	fg_print_string_jru
 
 	section text
 
@@ -17,22 +17,22 @@ fg_clear_with_header:
 		lda	#0
 		ldx	#FG_RAM_START
 		ldw	#FG_RAM_SIZE
-		SSU	ram_fill
+		JRU	ram_fill
 
 		FG_XY	0,1
 		ldy	#STR_HEADER
-		SSU	fg_print_string
+		JRU	fg_print_string
 
 		FG_XY	0,2
 		ldb	#'-'
-		SSU	fg_fill_line
+		JRU	fg_fill_line
 		rts
 
 
 
 ; ldx = start location in fg ram (use FG_XY x,y macro)
 ; ldy = start address of string
-fg_print_string_ssu:
+fg_print_string_jru:
 		lda	#0
 		ldb	,y+
 	.loop_next_char:
@@ -40,11 +40,11 @@ fg_print_string_ssu:
 		std	,x++
 		ldb	,y+
 		bne	.loop_next_char
-		SSU_RETURN
+		JRU_RETURN
 
 ; ldx = start location in fg ram (use FG_XY x,0 macro)
 ;   b = char
-fg_fill_line_ssu:
+fg_fill_line_jru:
 		lda	#0
 		subb	#$20
 		ldy	#$20
@@ -52,13 +52,13 @@ fg_fill_line_ssu:
 		std	,x++
 		leay	-1,y
 		bne	.loop_next_column
-		SSU_RETURN
+		JRU_RETURN
 
 ; prints the bits for the provided byte
 ; params:
 ;   x = start location in fg ram (use FG_XY x,y macro)
 ;   a = byte
-fg_print_bits_byte_ssu:
+fg_print_bits_byte_jru:
 
 		; will be printing backwards, so offset x
 		ldb	#(2 * 7)
@@ -82,13 +82,13 @@ fg_print_bits_byte_ssu:
 		decb
 		bne	.loop_next_bit
 
-		SSU_RETURN
+		JRU_RETURN
 
 ; print hex for the provided byte
 ; params:
 ;  x = start location in fg ram (use FG_XY x,y macro)
 ;  a = byte
-fg_print_hex_byte_ssu:
+fg_print_hex_byte_jru:
 
 		tfr	x,y
 
@@ -118,13 +118,13 @@ fg_print_hex_byte_ssu:
 		cmpr	y,x
 		bhs	.loop_next_nibble
 
-		SSU_RETURN
+		JRU_RETURN
 
 ; print hex for the provided word
 ; params:
 ;  x = start location in fg ram (use FG_XY x,y macro)
 ;  d = word
-fg_print_hex_word_ssu:
+fg_print_hex_word_jru:
 
 		tfr	x,y
 
@@ -154,5 +154,5 @@ fg_print_hex_word_ssu:
 		cmpr	y,x
 		bhs	.loop_next_nibble
 
-		SSU_RETURN
+		JRU_RETURN
 
