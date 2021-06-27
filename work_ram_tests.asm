@@ -6,12 +6,47 @@
 ; Work ram can't use the normal mem_tester code since it depends
 ; on work ram.  The below function handle testing work ram
 
-	global work_ram_output_ssu
-	global work_ram_writable_ssu
-	global work_ram_data_ssu
-	global work_ram_address_ssu
+	global auto_work_ram_tests
 
 	section text
+
+auto_work_ram_tests:
+
+		SSU	work_ram_output_test
+		tsta
+		lbne	work_ram_output_failed
+
+		SSU	work_ram_writable_test
+		tsta
+		lbne	work_ram_writable_failed
+
+		lde	#0
+		SSU	work_ram_data_test
+		tsta
+		lbne	work_ram_data_failed
+
+		lde	#$55
+		SSU	work_ram_data_test
+		tsta
+		lbne	work_ram_data_failed
+
+		lde	#$aa
+		SSU	work_ram_data_test
+		tsta
+		lbne	work_ram_data_failed
+
+		lde	#$ff
+		SSU	work_ram_data_test
+		tsta
+		lbne	work_ram_data_failed
+
+		SSU	work_ram_address_test
+		tsta
+		lbne	work_ram_address_failed
+
+		; jump back to _start
+		jmp	auto_work_ram_tests_passed
+
 ; The data connection between the cpu and ram chips looks like
 ;
 ; cpu <=> 245 (IC12) <=> 245 for specific ram chip <=> specific ram chip
@@ -21,7 +56,7 @@
 ; specific 245 are not outputing anything.
 ; returns
 ;  a = (0 = pass, 1 = fail)
-work_ram_output_ssu:
+work_ram_output_test_ssu:
 		ldx	#WORK_RAM_START
 		tfr	u,y		; backup u so we can do a nested delay call
 		lda	#1		; counter and value we will write
@@ -53,7 +88,7 @@ work_ram_output_ssu:
 ; the re-read byte is the original byte ram is unwritable.
 ; returns
 ;  a = (0 = pass, 1 = fail)
-work_ram_writable_ssu:
+work_ram_writable_test_ssu:
 		ldx	#WORK_RAM_START
 		lda	0,x
 		tfr	a,b
@@ -77,7 +112,7 @@ work_ram_writable_ssu:
 ;   a = (0 = pass, 1 = fail)
 ;   b = fail data
 ;   x = fail address
-work_ram_data_ssu:
+work_ram_data_test_ssu:
 		ldx	#WORK_RAM_START
 		ldy	#WORK_RAM_SIZE
 
@@ -106,7 +141,7 @@ work_ram_data_ssu:
 ;   a = (0 = pass, 1 = fail)
 ;   e = actual value
 ;   b = expected value
-work_ram_address_ssu:
+work_ram_address_test_ssu:
 		ldx	#WORK_RAM_START
 		lda	#WORK_RAM_ADDRESS_LINES
 
@@ -155,3 +190,106 @@ work_ram_address_ssu:
 		tfr	f,e
 		lda	#1
 		SSU_RETURN
+
+
+work_ram_output_failed:
+		FG_XY	0,5
+		ldy	#STR_WORK_RAM_DEAD_OUTPUT
+		SSU	fg_print_string
+
+		lda	#EC_WORK_RAM_DEAD_OUTPUT
+		SSU	play_error_code
+		STALL
+
+work_ram_writable_failed:
+		FG_XY	0,5
+		ldy	#STR_WORK_RAM_UNWRITABLE
+		SSU	fg_print_string
+
+		lda	#EC_WORK_RAM_UNWRITABLE
+		SSU	play_error_code
+		STALL
+
+; I believe there might be a little risk below
+; in that we are using the stack register to
+; temp store data.  I'm unsure, but it seems like
+; if the nmi pin is floating it may cause the cpu
+; to trigger the nmi vector since we touched the
+; stack register.
+work_ram_data_failed:
+
+		; e = expected value
+		; b = actual value
+		; x = address
+		tfr	e,a
+		tfr	d,s			; save expected + actual to stack register
+		tfr	x,d			; failed address to d
+		FG_XY	10,7
+		SSU	fg_print_hex_word
+
+		tfr	s,d			; restore expected + bad data
+		FG_XY	12,8
+		SSU	fg_print_hex_byte
+
+		tfr	s,d			; restore expected + bad again
+		exg	a,b			; bad data
+		FG_XY	12,9
+		SSU	fg_print_hex_byte
+
+		FG_XY	0,5
+		ldy	#STR_WORK_RAM_DATA
+		SSU	fg_print_string
+
+		FG_XY	0,7
+		ldy	#STR_ADDRESS
+		SSU	fg_print_string
+
+		FG_XY	0,8
+		ldy	#STR_EXPECTED
+		SSU	fg_print_string
+
+		FG_XY	0,9
+		ldy	#STR_ACTUAL
+		SSU	fg_print_string
+
+		lda	#EC_WORK_RAM_DATA
+		SSU	play_error_code
+
+		STALL
+
+work_ram_address_failed:
+
+		; b = actual value
+		; f = expected
+		tfr	f,s			; save expected to stack register
+		tfr	b,a			; actual
+		FG_XY	12,8
+		SSU	fg_print_hex_byte
+
+		tfr	s,a			; restore expected
+		FG_XY	12,7
+		SSU	fg_print_hex_byte
+
+		FG_XY	0,5
+		ldy	#STR_WORK_RAM_ADDRESS
+		SSU	fg_print_string
+
+		FG_XY	0,7
+		ldy	#STR_EXPECTED
+		SSU	fg_print_string
+
+		FG_XY	0,8
+		ldy	#STR_ACTUAL
+		SSU	fg_print_string
+
+		lda	#EC_WORK_RAM_ADDRESS
+		SSU	play_error_code
+
+		STALL
+
+
+; work ram error strings
+STR_WORK_RAM_DEAD_OUTPUT:	string "WORK RAM DEAD OUTPUT"
+STR_WORK_RAM_UNWRITABLE:	string "WORK RAM UNWRITABLE"
+STR_WORK_RAM_DATA:		string "WORK RAM DATA"
+STR_WORK_RAM_ADDRESS:		string "WORK RAM ADDRESS"

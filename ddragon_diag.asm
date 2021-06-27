@@ -4,6 +4,7 @@
 	include "macros.inc"
 
 	global _start
+	global auto_work_ram_tests_passed
 	global STR_ACTUAL
 	global STR_ADDRESS
 	global STR_EXPECTED
@@ -49,53 +50,12 @@ _start:
 		ldb	#'-'
 		SSU	fg_fill_line
 
-		; check work ram before we start using it
-		SSU	work_ram_output
-		tsta
-		beq	.work_ram_output_passed
-		jmp	.test_failed_work_ram_output
-	.work_ram_output_passed:
+		; jmp to the work ram tests, we can't
+		; use jsr since the work ram/stack maybe
+		; bad
+		jmp	auto_work_ram_tests
 
-		SSU	work_ram_writable
-		tsta
-		beq	.work_ram_writable_passed
-		jmp	.test_failed_work_ram_writable
-	.work_ram_writable_passed:
-
-		lde	#0
-		SSU	work_ram_data
-		tsta
-		beq	.work_ram_data_00_passed
-		jmp	.test_failed_work_ram_data
-	.work_ram_data_00_passed:
-
-		lde	#$55
-		SSU	work_ram_data
-		tsta
-		beq	.work_ram_data_55_passed
-		jmp	.test_failed_work_ram_data
-	.work_ram_data_55_passed:
-
-		lde	#$aa
-		SSU	work_ram_data
-		tsta
-		beq	.work_ram_data_aa_passed
-		jmp	.test_failed_work_ram_data
-	.work_ram_data_aa_passed:
-
-		lde	#$ff
-		SSU	work_ram_data
-		tsta
-		beq	.work_ram_data_ff_passed
-		jmp	.test_failed_work_ram_data
-	.work_ram_data_ff_passed:
-
-
-		SSU	work_ram_address
-		tsta
-		beq	.work_ram_address_passed
-		jmp	.test_failed_work_ram_address
-	.work_ram_address_passed:
+auto_work_ram_tests_passed:
 
 		; at this point we consider work ram good
 		; init stack, enable ints
@@ -106,6 +66,7 @@ _start:
 		sta	ACK_NMI
 
 		jsr	automatic_tests
+
 		jsr	fg_clear_with_header
 
 		FG_XY	0,5
@@ -132,101 +93,6 @@ _start:
 		beq	.loop_wait_a_button
 
 		jsr	main_menu
-		STALL
-
-	.test_failed_work_ram_output:
-		FG_XY	0,5
-		ldy	#STR_WORK_RAM_DEAD_OUTPUT
-		SSU	fg_print_string
-
-		lda	#EC_WORK_RAM_DEAD_OUTPUT
-		SSU	play_error_code
-		STALL
-
-	.test_failed_work_ram_writable:
-		FG_XY	0,5
-		ldy	#STR_WORK_RAM_UNWRITABLE
-		SSU	fg_print_string
-
-		lda	#EC_WORK_RAM_UNWRITABLE
-		SSU	play_error_code
-
-		STALL
-	; I believe there might be a little risk below
-	; in that we are using the stack register to
-	; temp store data.  I'm unsure, but it seems like
-	; if the nmi pin is floating it may cause the cpu
-	; to trigger the nmi vector since we touched the
-	; stack register.
-	.test_failed_work_ram_data:
-
-		; e = expected value
-		; b = actual value
-		; x = address
-		tfr	e,a
-		tfr	d,s			; save expected + actual to stack register
-		tfr	x,d			; failed address to d
-		FG_XY	10,7
-		SSU	fg_print_hex_word
-
-		tfr	s,d			; restore expected + bad data
-		FG_XY	12,8
-		SSU	fg_print_hex_byte
-
-		tfr	s,d			; restore expected + bad again
-		exg	a,b			; bad data
-		FG_XY	12,9
-		SSU	fg_print_hex_byte
-
-		FG_XY	0,5
-		ldy	#STR_WORK_RAM_DATA
-		SSU	fg_print_string
-
-		FG_XY	0,7
-		ldy	#STR_ADDRESS
-		SSU	fg_print_string
-
-		FG_XY	0,8
-		ldy	#STR_EXPECTED
-		SSU	fg_print_string
-
-		FG_XY	0,9
-		ldy	#STR_ACTUAL
-		SSU	fg_print_string
-
-		lda	#EC_WORK_RAM_DATA
-		SSU	play_error_code
-
-		STALL
-
-	.test_failed_work_ram_address:
-
-		; b = actual value
-		; f = expected
-		tfr	f,s			; save expected to stack register
-		tfr	b,a			; actual
-		FG_XY	12,8
-		SSU	fg_print_hex_byte
-
-		tfr	s,a			; restore expected
-		FG_XY	12,7
-		SSU	fg_print_hex_byte
-
-		FG_XY	0,5
-		ldy	#STR_WORK_RAM_ADDRESS
-		SSU	fg_print_string
-
-		FG_XY	0,7
-		ldy	#STR_EXPECTED
-		SSU	fg_print_string
-
-		FG_XY	0,8
-		ldy	#STR_ACTUAL
-		SSU	fg_print_string
-
-		lda	#EC_WORK_RAM_ADDRESS
-		SSU	play_error_code
-
 		STALL
 
 ; struct auto_test_item {
@@ -420,9 +286,3 @@ STR_ADDRESS:			string "ADDRESS"
 STR_EXPECTED:			string "EXPECTED"
 STR_VALUE:			string "VALUE"
 STR_PASSES:			string "PASSES"
-
-; work ram error strings
-STR_WORK_RAM_DEAD_OUTPUT:	string "WORK RAM DEAD OUTPUT"
-STR_WORK_RAM_UNWRITABLE:	string "WORK RAM UNWRITABLE"
-STR_WORK_RAM_DATA:		string "WORK RAM DATA"
-STR_WORK_RAM_ADDRESS:		string "WORK RAM ADDRESS"
