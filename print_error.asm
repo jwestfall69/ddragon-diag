@@ -78,7 +78,6 @@ print_error_string:
 		FG_XY	0,5
 		ldy	g_error_code_description
 		JRU	fg_print_string
-		STALL
 		rts
 
 ; prints
