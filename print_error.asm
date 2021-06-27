@@ -75,7 +75,7 @@ print_error:
 
 ; just print the error code description
 print_error_string:
-		FG_XY	0,5
+		FG_XY	0,6
 		ldy	g_error_code_description
 		JRU	fg_print_string
 		rts
@@ -86,31 +86,31 @@ print_error_string:
 ;  EXPECTED  00
 ;  ACTUAL    FF
 print_error_ram_data_fail:
-		FG_XY	0,5
+		FG_XY	0,6
 		ldy	g_error_code_description
 		JRU	fg_print_string
 
-		FG_XY	0,7
+		FG_XY	0,8
 		ldy	#STR_ADDRESS
 		JRU	fg_print_string
 
-		FG_XY	0,8
+		FG_XY	0,9
 		ldy	#STR_EXPECTED
 		JRU	fg_print_string
 
-		FG_XY	0,9
+		FG_XY	0,10
 		ldy	#STR_ACTUAL
 		JRU	fg_print_string
 
-		FG_XY	12,7
+		FG_XY	12,8
 		ldd	g_mt_error_address
 		JRU	fg_print_hex_word
 
-		FG_XY	14,8
+		FG_XY	14,9
 		lda	g_mt_error_expected
 		JRU	fg_print_hex_byte
 
-		FG_XY	14,9
+		FG_XY	14,10
 		lda	g_mt_error_actual
 		JRU	fg_print_hex_byte
 		rts
@@ -122,23 +122,23 @@ print_error_ram_data_fail:
 ;  ACTUAL    FF
 print_error_ram_address_fail:
 
-		FG_XY	0,5
+		FG_XY	0,6
 		ldy	g_error_code_description
 		JRU	fg_print_string
 
-		FG_XY	0,7
+		FG_XY	0,8
 		ldy	#STR_EXPECTED
 		JRU	fg_print_string
 
-		FG_XY	0,8
+		FG_XY	0,9
 		ldy	#STR_ACTUAL
 		JRU	fg_print_string
 
-		FG_XY	12,7
+		FG_XY	12,8
 		lda	g_mt_error_expected
 		JRU	fg_print_hex_byte
 
-		FG_XY	12,8
+		FG_XY	12,9
 		lda	g_mt_error_actual
 		JRU	fg_print_hex_byte
 		rts
