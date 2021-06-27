@@ -12,11 +12,35 @@
 manual_sound_tests:
 
 		; static text
-		FG_XY	2,5
+		FG_XY	2,7
 		ldy	#STR_SND_NUM
 		JRU	fg_print_string
 
-		ldb	#2		; sound number, 0/1 arent a sound.
+		FG_XY	2,19
+		ldy	#STR_02_12_FM
+		JRU	fg_print_string
+
+		FG_XY	2,20
+		ldy	#STR_80_BA_PCM
+		JRU	fg_print_string
+
+		FG_XY	2,23
+		ldy	#STR_JOY_CHANGE
+		JRU	fg_print_string
+
+		FG_XY	2,24
+		ldy	#STR_A_PLAY
+		JRU	fg_print_string
+
+		FG_XY	2,25
+		ldy	#STR_B_STOP
+		JRU	fg_print_string
+
+		FG_XY	2,26
+		ldy	#STR_C_MAIN_MENU
+		JRU	fg_print_string
+
+		ldb	#2		; sound number; start at 2 as 0/1 aren't valid
 
 	.loop_input:
 		jsr	input_update
@@ -60,7 +84,7 @@ manual_sound_tests:
 
 	.c_not_pressed:
 
-		FG_XY	10,5
+		FG_XY	13,7
 		tfr	b,a
 
 		pshs	b
@@ -72,4 +96,10 @@ manual_sound_tests:
 
 STR_SOUND_TESTS:		string "SOUND TESTS"
 
-STR_SND_NUM:			string "SND NUM: "
+STR_SND_NUM:			string "SND NUMBER "
+STR_02_12_FM:			string "02 TO 12 ARE FM"
+STR_80_BA_PCM:			string "80 TO BA ARE PCM"
+
+STR_JOY_CHANGE:			string "JOY - CHANGE SOUND NUMBER"
+STR_A_PLAY:			string "A - PLAY SOUND"
+STR_B_STOP:			string "B - STOP SOUND"
