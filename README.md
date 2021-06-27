@@ -9,13 +9,15 @@ It will need to be burnt to a 27c256 and installed in to IC26.  All remain
 other roms should be left installed.
 
 ## Pre-Built
+You can grab the lastest build from the main branch at
 
-todo
+https://www.mvs-scans.com/ddragon-diag/ddragon-diag-main.zip
+
 
 ## Building
 Building requires vasm (vasm6809_oldstyle) and vlink which are available here
 
-http://sun.hasenbraten.de/vasm/
+http://sun.hasenbraten.de/vasm/<br>
 http://sun.hasenbraten.de/vlink/
 
 For the time being you must use the nightly build of vasm as there are a couple
