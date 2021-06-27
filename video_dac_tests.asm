@@ -271,7 +271,6 @@ fg_fill:
 STR_VIDEO_DAC_TESTS:		string "VIDEO DAC TESTS"
 STR_BIT_HEADER:			string "B0  B1  B2  B3  ALL"
 STR_A_FULLSCREEN:		string "A - FULLSCREEN"
-STR_C_MAIN_MENU:		string "C - MAIN MENU"
 
 
 

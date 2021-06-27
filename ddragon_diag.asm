@@ -11,6 +11,7 @@
 	global STR_HEADER
 	global STR_VALUE
 	global STR_PASSES
+	global STR_C_MAIN_MENU
 
 	section text
 
@@ -291,6 +292,7 @@ STR_HEADER:			string " DOUBLE DRAGON DIAG - 00 - ACK"
 
 STR_ALL_TESTS_PASSED:		string "ALL TESTS PASSED"
 STR_A_MAIN_MENU:		string "PRESS A FOR MAIN MENU"
+STR_C_MAIN_MENU:		string "C - MAIN MENU"
 
 ; misc strings
 STR_ACTUAL:			string "ACTUAL"
