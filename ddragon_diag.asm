@@ -229,12 +229,6 @@ main_menu:
 		aslb
 		leay	b,y		; get to the right menu item
 
-		pshs	y
-		FG_XY	0,3
-		ldy	0,y		; menu item's string
-		JRU	fg_print_string
-		puls	y
-
 		jsr	[2,y]		; call the menu item's function
 		jmp	main_menu
 

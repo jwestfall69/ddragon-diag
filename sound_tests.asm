@@ -12,6 +12,10 @@
 manual_sound_tests:
 
 		; static text
+		FG_XY	10,4
+		ldy	#STR_SOUND_TESTS
+		JRU	fg_print_string
+
 		FG_XY	2,7
 		ldy	#STR_SND_NUM
 		JRU	fg_print_string
