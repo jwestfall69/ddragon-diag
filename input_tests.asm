@@ -56,13 +56,15 @@ manual_input_tests:
 		ldy	#STR_SWI
 		JRU	fg_print_string
 
+		FG_XY	5,26
+		ldy	#STR_A_START_MAIN_MENU
+		JRU	fg_print_string
+
 		clrd
 		std	g_nmi_count
 		std	g_irq_count
 		std	g_firq_count
 		std	g_swi_count
-
-
 
 	.loop_input:
 
@@ -107,7 +109,12 @@ manual_input_tests:
 		ldd	g_swi_count
 		JRU	fg_print_hex_word
 
-		jmp	.loop_input
+		lda	INPUT_P1
+		coma
+		anda	#(P1_START + A_BUTTON)
+		cmpa	#(P1_START + A_BUTTON)
+		bne	.loop_input
+		rts
 
 STR_INPUT_TESTS:		string "INPUT TESTS"
 
@@ -121,3 +128,5 @@ STR_NMI:			string " NMI"
 STR_IRQ:			string " IRQ"
 STR_FIRQ:			string "FIRQ"
 STR_SWI:			string " SWI"
+
+STR_A_START_MAIN_MENU:		string "A+P1 START - MAIN MENU"
