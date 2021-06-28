@@ -93,7 +93,7 @@ manual_bg_ram_tests:
 	.a_not_pressed:
 
 		lda	g_extra_input_edge
-		bita	#C_P1_BUTTON
+		bita	#P1_C_BUTTON
 		beq	.loop_next_test
 
 		; fix up stack

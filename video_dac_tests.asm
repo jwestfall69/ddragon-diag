@@ -38,7 +38,7 @@ manual_video_dac_tests:
 	.a_not_pressed:
 
 		lda	g_extra_input_edge
-		bita	#C_P1_BUTTON
+		bita	#P1_C_BUTTON
 		beq	.loop_input
 
 		rts
@@ -225,7 +225,7 @@ full_screen:
 	.left_not_pressed:
 		lda	g_extra_input_edge
 
-		bita	#C_P1_BUTTON
+		bita	#P1_C_BUTTON
 		beq	.loop_input
 		rts
 

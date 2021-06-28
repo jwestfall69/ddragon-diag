@@ -53,7 +53,7 @@ _start:
 		JRU	fg_fill_line
 
 		lda	INPUT_EXTRA
-		anda	#C_P1_BUTTON			; if c button pressed we will skip auto tests
+		anda	#P1_C_BUTTON			; if c button pressed we will skip auto tests
 		beq	auto_work_ram_tests_passed
 
 		; jmp to the work ram tests, we can't
@@ -81,7 +81,7 @@ auto_work_ram_tests_passed:
 		sta	ACK_NMI
 
 		lda	INPUT_EXTRA
-		anda	#C_P1_BUTTON
+		anda	#P1_C_BUTTON
 		beq	.skip_auto_tests
 
 		jsr	automatic_tests

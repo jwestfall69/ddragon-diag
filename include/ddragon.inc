@@ -52,10 +52,14 @@ LEFT				equ $02
 RIGHT				equ $01
 A_BUTTON			equ $10
 B_BUTTON			equ $20
+P1_START			equ $40
+P2_START			equ $80
 
 ; these are on the extra input
-C_P1_BUTTON			equ $02
-C_P2_BUTTON			equ $01
+P1_C_BUTTON			equ $02
+P2_C_BUTTON			equ $01
+P1_COIN				equ $40
+P2_COIN				equ $80
 
 ; fg stuff
 FG_TILES_PER_ROW		equ $40
