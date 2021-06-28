@@ -46,7 +46,7 @@ manual_bg_ram_tests:
 		JRU	fg_print_string
 
 		FG_XY	5,25
-		ldy	#STR_A_PAUSE
+		ldy	#STR_A_HOLD_PAUSE
 		JRU	fg_print_string
 
 		FG_XY	5,26
@@ -143,5 +143,3 @@ bg_clear:
 
 STR_TESTING_BG_RAM:		string "TESTING BG RAM"
 STR_BG_RAM_TESTS:		string "BG RAM TESTS"
-
-STR_A_PAUSE:			string "A - HOLD TO PAUSE"
