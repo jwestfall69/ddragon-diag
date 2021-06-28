@@ -128,12 +128,6 @@ manual_bg_ram_tests:
 		STALL
 		rts
 
-wait_a_release:
-		lda	INPUT_P1
-		anda	#A_BUTTON
-		beq	wait_a_release
-		rts
-
 bg_clear:
 		ldx	#BG_RAM_START
 		ldw	#BG_RAM_SIZE

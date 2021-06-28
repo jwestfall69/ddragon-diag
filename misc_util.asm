@@ -8,6 +8,7 @@
 	global palette_init_jru
 	global play_error_code_jru
 	global ram_fill_jru
+	global wait_a_release
 
 	section text
 
@@ -118,4 +119,10 @@ input_refresh:
 
 		sta	0,y
 		stb	0,x
+		rts
+
+wait_a_release:
+		lda	INPUT_P1
+		anda	#A_BUTTON
+		beq	wait_a_release
 		rts
