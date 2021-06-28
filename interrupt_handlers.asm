@@ -27,8 +27,6 @@ handle_irq:
 		std	g_irq_count
 		lda	#1
 		sta	ACK_IRQ
-		lda	#$10
-		sta	$380f
 		puls	d
 		rti
 
