@@ -36,7 +36,7 @@ PAL_SIZE			equ $10
 ACK_NMI				equ $380b
 ACK_FIRQ			equ $380c
 ACK_IRQ				equ $380d
-ACK_MCU				equ $380f
+NMI_TO_MCU			equ $380f
 
 ; input addresses
 INPUT_P1			equ $3800
@@ -70,3 +70,9 @@ REG_SOUND		equ $380e
 SND_COIN		equ $02
 SND_GO			equ $12
 
+; When the mcu starts it will sum up all 
+; the bytes of its internal rom as a checksum
+; Below is the expected checksum value and
+; location we can read it from on the main cpu
+MCU_CHECKSUM		equ $84
+MCU_CHECKSUM_LOCATION	equ $2000

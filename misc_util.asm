@@ -5,6 +5,8 @@
 
 	global delay_jru
 	global input_update
+	global mcu_halt_jru
+	global mcu_run_jru
 	global palette_init_jru
 	global play_error_code_jru
 	global ram_fill_jru
@@ -126,3 +128,32 @@ wait_a_release:
 		anda	#A_BUTTON
 		beq	wait_a_release
 		rts
+
+mcu_halt_jru:
+		lda	#$18
+		jmp	mcu_add_screen_flip_bit
+
+mcu_run_jru:
+		lda	#$8
+		jmp	mcu_add_screen_flip_bit
+
+; NOTE: on hardware writing 1 to bit 4 on
+; REG_BANKSWITCH causes the screen to be upside
+; down, 0 right side up.  MAME has the opposite
+; logic.  Likewise in game if DSW0 switch 8 is
+; in the 'off' position, on hardware the game
+; is unside down, in MAME its right side up.
+; To work around this we have the following
+; code so everyone is right side up, instead of
+; just being able to hardcode the bit to 0.
+mcu_add_screen_flip_bit:
+		ldb	INPUT_DSW0
+		comb
+		bitb	#$80
+		bne	.skip_screen_flip_bit
+		ora	#$4
+	.skip_screen_flip_bit:
+
+		sta	REG_BANKSWITCH
+		JRU_RETURN
+

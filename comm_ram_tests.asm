@@ -12,17 +12,7 @@
 ; comm ram, shared between cpu the mcu
 auto_comm_ram_tests:
 
-		; NOTE: on hardware writing 1 to bit 4 on
-		; REG_BANKSWITCH causes the screen to be upside
-		; down, 0 right side up.  MAME has the opposite
-		; logic.  Likewise in game if DSW0 switch 8 is
-		; in the 'off' position, on hardware the game
-		; is unside down, in MAME its right side up.
-
-		; halt the MCU so we can fully access the shared
-		; ram
-		lda	#$18
-		sta	REG_BANKSWITCH
+		JRU	mcu_halt
 
 		ldd	#COMM_RAM_START
 		std	g_mt_mem_start_address
@@ -46,19 +36,7 @@ auto_comm_ram_tests:
 		clra
 		JRU	ram_fill
 
-
-	; this works around hardware vs mame
-	; screen flip/flop difference
-		ldb	#$8
-		lda	INPUT_DSW0
-		coma
-		bita	#$80
-		bne	.skip_flip_bit
-		orb	#$4
-	.skip_flip_bit:
-
-		; unhalt MCU
-		stb	REG_BANKSWITCH
+		JRU	mcu_run
 		puls	a
 		rts
 
