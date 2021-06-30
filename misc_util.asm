@@ -6,6 +6,7 @@
 	global delay_jru
 	global input_update
 	global mcu_halt_jru
+	global mcu_reset_jru
 	global mcu_run_jru
 	global palette_init_jru
 	global play_error_code_jru
@@ -157,3 +158,22 @@ mcu_add_screen_flip_bit:
 		sta	REG_BANKSWITCH
 		JRU_RETURN
 
+
+mcu_reset_jru:
+		lda	#$0
+		ldb	INPUT_DSW0
+		comb
+		bitb	#$80
+		bne	.skip_screen_flip_bit
+		ora	#$4
+	.skip_screen_flip_bit:
+
+		sta	REG_BANKSWITCH
+
+		tfr	u,x
+		ldw	#$1ff
+		JRU	delay
+
+		tfr	x,u
+
+		jmp	mcu_run_jru

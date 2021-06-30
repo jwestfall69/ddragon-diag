@@ -8,8 +8,10 @@
 	global STR_ACTUAL
 	global STR_ADDRESS
 	global STR_EXPECTED
+	global STR_FAIL
 	global STR_HEADER
 	global STR_VALUE
+	global STR_PASS
 	global STR_PASSES
 	global STR_A_HOLD_PAUSE
 	global STR_C_MAIN_MENU
@@ -180,6 +182,7 @@ MAIN_MENU_ITEMS_START:
 	MAIN_MENU_ITEM STR_OBJ_RAM_TESTS, manual_obj_ram_tests
 	MAIN_MENU_ITEM STR_INPUT_TESTS, manual_input_tests
 	MAIN_MENU_ITEM STR_SOUND_TESTS, manual_sound_tests
+	MAIN_MENU_ITEM STR_MCU_TESTS, manual_mcu_tests
 	MAIN_MENU_ITEM STR_VIDEO_DAC_TESTS, manual_video_dac_tests
 MAIN_MENU_ITEMS_END:
 
@@ -298,5 +301,7 @@ STR_C_MAIN_MENU:		string "C - MAIN MENU"
 STR_ACTUAL:			string "ACTUAL"
 STR_ADDRESS:			string "ADDRESS"
 STR_EXPECTED:			string "EXPECTED"
-STR_VALUE:			string "VALUE"
+STR_FAIL:			string "FAIL"
+STR_PASS:			string "PASS"
 STR_PASSES:			string "PASSES"
+STR_VALUE:			string "VALUE"

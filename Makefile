@@ -7,6 +7,7 @@ OBJS = obj/bg_ram_tests.o \
        obj/interrupt_handlers.o \
        obj/mem_tester.o \
        obj/misc_util.o \
+       obj/mcu_tests.o \
        obj/obj_ram_tests.o \
        obj/pal_ext_ram_tests.o \
        obj/pal_ram_tests.o \
@@ -59,6 +60,9 @@ $(OBJ_DIR)/mem_tester.o: mem_tester.asm $(INCS)
 
 $(OBJ_DIR)/misc_util.o: misc_util.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) -o $(OBJ_DIR)/misc_util.o misc_util.asm
+
+$(OBJ_DIR)/mcu_tests.o: mcu_tests.asm $(INCS)
+	$(VASM) $(VASM_FLAGS) -o $(OBJ_DIR)/mcu_tests.o mcu_tests.asm
 
 $(OBJ_DIR)/obj_ram_tests.o: obj_ram_tests.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) -o $(OBJ_DIR)/obj_ram_tests.o obj_ram_tests.asm
