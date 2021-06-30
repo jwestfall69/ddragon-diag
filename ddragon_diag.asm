@@ -180,6 +180,7 @@ MAIN_MENU_ITEMS_START:
 	MAIN_MENU_ITEM STR_PAL_RAM_TESTS, manual_pal_ram_tests
 	MAIN_MENU_ITEM STR_PAL_EXT_RAM_TESTS, manual_pal_ext_ram_tests
 	MAIN_MENU_ITEM STR_OBJ_RAM_TESTS, manual_obj_ram_tests
+	MAIN_MENU_ITEM STR_COMM_RAM_TESTS, manual_comm_ram_tests
 	MAIN_MENU_ITEM STR_INPUT_TESTS, manual_input_tests
 	MAIN_MENU_ITEM STR_SOUND_TESTS, manual_sound_tests
 	MAIN_MENU_ITEM STR_MCU_TESTS, manual_mcu_tests
