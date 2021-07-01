@@ -177,6 +177,7 @@ automatic_tests:
 
 MAIN_MENU_ITEMS_START:
 	MAIN_MENU_ITEM STR_BG_RAM_TESTS, manual_bg_ram_tests
+	MAIN_MENU_ITEM STR_FG_RAM_TESTS, manual_fg_ram_tests
 	MAIN_MENU_ITEM STR_PAL_RAM_TESTS, manual_pal_ram_tests
 	MAIN_MENU_ITEM STR_PAL_EXT_RAM_TESTS, manual_pal_ext_ram_tests
 	MAIN_MENU_ITEM STR_OBJ_RAM_TESTS, manual_obj_ram_tests
