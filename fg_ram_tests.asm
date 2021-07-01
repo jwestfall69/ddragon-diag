@@ -50,6 +50,7 @@ manual_fg_ram_tests:
 		sta	g_mt_data_mask
 
 		jsr	mem_tester
+		lda	#1
 		tsta
 		bne	.test_failed
 
@@ -96,7 +97,7 @@ manual_fg_ram_tests:
 		FG_XY	12,12
 		JRU	fg_print_hex_word
 
-		STALL
+		jsr	wait_c_press
 		rts
 
 print_static_text:

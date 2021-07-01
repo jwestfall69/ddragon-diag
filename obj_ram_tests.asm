@@ -35,21 +35,7 @@ auto_obj_ram_tests:
 
 manual_obj_ram_tests:
 
-		FG_XY	3,5
-		ldy	#STR_OBJ_RAM_TESTS
-		JRU	fg_print_string
-
-		FG_XY	2,12
-		ldy	#STR_PASSES
-		JRU	fg_print_string
-
-		FG_XY	5,25
-		ldy	#STR_A_HOLD_PAUSE
-		JRU	fg_print_string
-
-		FG_XY	5,26
-		ldy	#STR_C_MAIN_MENU
-		JRU	fg_print_string
+		jsr	print_static_text
 
 		ldw	#0		; # of passes
 		pshsw
@@ -101,14 +87,7 @@ manual_obj_ram_tests:
 	.test_failed:
 		adda	#(EC_OBJ_RAM_DEAD_OUTPUT - 1)
 		jsr	print_error
-
-		FG_XY	3,5
-		ldy	#STR_OBJ_RAM_TESTS
-		JRU	fg_print_string
-
-		FG_XY	2,12
-		ldy	#STR_PASSES
-		JRU	fg_print_string
+		jsr	print_static_text
 
 		pulsw
 		tfr	w,d
@@ -117,10 +96,26 @@ manual_obj_ram_tests:
 		JRU	fg_print_hex_word
 
 		jsr	obj_clear
-
-		STALL
+		jsr	wait_c_press
 		rts
 
+print_static_text:
+		FG_XY	3,4
+		ldy	#STR_OBJ_RAM_TESTS
+		JRU	fg_print_string
+
+		FG_XY	2,12
+		ldy	#STR_PASSES
+		JRU	fg_print_string
+
+		FG_XY	5,25
+		ldy	#STR_A_HOLD_PAUSE
+		JRU	fg_print_string
+
+		FG_XY	5,26
+		ldy	#STR_C_MAIN_MENU
+		JRU	fg_print_string
+		rts
 obj_clear:
 		ldx	#OBJ_RAM_START
 		ldw	#OBJ_RAM_SIZE

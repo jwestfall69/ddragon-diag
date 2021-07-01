@@ -36,21 +36,7 @@ auto_bg_ram_tests:
 
 manual_bg_ram_tests:
 
-		FG_XY	10,4
-		ldy	#STR_BG_RAM_TESTS
-		JRU	fg_print_string
-
-		FG_XY	2,12
-		ldy	#STR_PASSES
-		JRU	fg_print_string
-
-		FG_XY	5,25
-		ldy	#STR_A_HOLD_PAUSE
-		JRU	fg_print_string
-
-		FG_XY	5,26
-		ldy	#STR_C_MAIN_MENU
-		JRU	fg_print_string
+		jsr	print_static_text
 
 		ldw	#0		; # of passes
 		pshsw
@@ -110,21 +96,32 @@ manual_bg_ram_tests:
 		puls	a
 
 		jsr	print_error
-
-		FG_XY	10,4
-		ldy	#STR_BG_RAM_TESTS
-		JRU	fg_print_string
-
-		FG_XY	0,12
-		ldy	#STR_PASSES
-		JRU	fg_print_string
+		jsr	print_static_text
 
 		pulsw
 		tfr	w,d
 		FG_XY	12,12
 		JRU	fg_print_hex_word
 
-		STALL
+		jsr	wait_c_press
+		rts
+
+print_static_text:
+		FG_XY	10,4
+		ldy	#STR_BG_RAM_TESTS
+		JRU	fg_print_string
+
+		FG_XY	2,12
+		ldy	#STR_PASSES
+		JRU	fg_print_string
+
+		FG_XY	5,25
+		ldy	#STR_A_HOLD_PAUSE
+		JRU	fg_print_string
+
+		FG_XY	5,26
+		ldy	#STR_C_MAIN_MENU
+		JRU	fg_print_string
 		rts
 
 bg_clear:

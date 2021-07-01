@@ -12,6 +12,7 @@
 	global play_error_code_jru
 	global ram_fill_jru
 	global wait_a_release
+	global wait_c_press
 
 	section text
 
@@ -128,6 +129,13 @@ wait_a_release:
 		lda	INPUT_P1
 		anda	#A_BUTTON
 		beq	wait_a_release
+		rts
+
+wait_c_press:
+		jsr	input_update
+		lda	g_extra_input_edge
+		bita	#P1_C_BUTTON
+		beq	wait_c_press
 		rts
 
 mcu_halt_jru:
