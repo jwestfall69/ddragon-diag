@@ -5,7 +5,6 @@
 
 	global auto_comm_ram_tests
 	global manual_comm_ram_tests
-	global STR_TESTING_COMM_RAM
 	global STR_COMM_RAM_TESTS
 
 	section text
@@ -129,5 +128,4 @@ manual_comm_ram_tests:
 		STALL
 		rts
 
-STR_TESTING_COMM_RAM:		string "TESTING COMM RAM"
 STR_COMM_RAM_TESTS:		string "COMM RAM TESTS"

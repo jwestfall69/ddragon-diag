@@ -5,7 +5,6 @@
 
 	global auto_bg_ram_tests
 	global manual_bg_ram_tests
-	global STR_TESTING_BG_RAM
 	global STR_BG_RAM_TESTS
 
 	section text
@@ -135,5 +134,4 @@ bg_clear:
 		JRU	ram_fill
 		rts
 
-STR_TESTING_BG_RAM:		string "TESTING BG RAM"
 STR_BG_RAM_TESTS:		string "BG RAM TESTS"

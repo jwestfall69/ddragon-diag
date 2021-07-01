@@ -116,12 +116,12 @@ auto_work_ram_tests_passed:
 ;	word test_function;
 ;}
 AUTO_TEST_ITEMS_START:
-	AUTO_TEST_ITEM STR_TESTING_PAL_RAM, auto_pal_ram_tests
-	AUTO_TEST_ITEM STR_TESTING_PAL_EXT_RAM, auto_pal_ext_ram_tests
-	AUTO_TEST_ITEM STR_TESTING_FG_RAM, auto_fg_ram_tests
-	AUTO_TEST_ITEM STR_TESTING_BG_RAM, auto_bg_ram_tests
-	AUTO_TEST_ITEM STR_TESTING_OBJ_RAM, auto_obj_ram_tests
-	AUTO_TEST_ITEM STR_TESTING_COMM_RAM, auto_comm_ram_tests
+	AUTO_TEST_ITEM STR_PAL_RAM_TESTS, auto_pal_ram_tests
+	AUTO_TEST_ITEM STR_PAL_EXT_RAM_TESTS, auto_pal_ext_ram_tests
+	AUTO_TEST_ITEM STR_FG_RAM_TESTS, auto_fg_ram_tests
+	AUTO_TEST_ITEM STR_BG_RAM_TESTS, auto_bg_ram_tests
+	AUTO_TEST_ITEM STR_OBJ_RAM_TESTS, auto_obj_ram_tests
+	AUTO_TEST_ITEM STR_COMM_RAM_TESTS, auto_comm_ram_tests
 AUTO_TEST_ITEMS_END:
 
 automatic_tests:

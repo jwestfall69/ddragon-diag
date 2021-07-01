@@ -5,7 +5,6 @@
 
 	global auto_pal_ram_tests
 	global manual_pal_ram_tests
-	global STR_TESTING_PAL_RAM
 	global STR_PAL_RAM_TESTS
 
 	section text
@@ -122,5 +121,4 @@ manual_pal_ram_tests:
 		STALL
 		rts
 
-STR_TESTING_PAL_RAM:		string "TESTING PAL RAM"
 STR_PAL_RAM_TESTS:		string "PAL RAM TESTS"

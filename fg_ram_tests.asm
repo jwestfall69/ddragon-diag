@@ -5,7 +5,6 @@
 
 	global auto_fg_ram_tests
 	global manual_fg_ram_tests
-	global STR_TESTING_FG_RAM
 	global STR_FG_RAM_TESTS
 
 	section text
@@ -119,5 +118,4 @@ print_static_text:
 
 		rts
 
-STR_TESTING_FG_RAM:		string "TESTING FG RAM"
 STR_FG_RAM_TESTS:		string "FG RAM TESTS"

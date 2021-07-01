@@ -5,7 +5,6 @@
 
 	global auto_obj_ram_tests
 	global manual_obj_ram_tests
-	global STR_TESTING_OBJ_RAM
 	global STR_OBJ_RAM_TESTS
 
 	section text
@@ -129,6 +128,4 @@ obj_clear:
 		JRU	ram_fill
 		rts
 
-
-STR_TESTING_OBJ_RAM:		string "TESTING OBJ/SPRITE RAM"
 STR_OBJ_RAM_TESTS:		string "OBJ/SPRITE RAM TESTS"
