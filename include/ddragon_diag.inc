@@ -28,6 +28,10 @@ g_mt_error_address		equ $0046
 g_mt_error_expected		equ $0048
 g_mt_error_actual		equ $0049
 
+; memory above this is free for test
+; function to use for whatever
+g_local_vars_start		equ $0100
+
 ; mem tester errors
 MT_ERROR_DEAD_OUTPUT		equ $01
 MT_ERROR_UNWRITABLE		equ $02
