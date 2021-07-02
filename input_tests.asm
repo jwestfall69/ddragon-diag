@@ -8,7 +8,11 @@
 
 	section text
 
+g_start_b_pressed		equ g_local_vars_start
+
 manual_input_tests:
+
+		clr	g_start_b_pressed
 
 		; static text
 		FG_XY	10,4
@@ -52,12 +56,12 @@ manual_input_tests:
 		ldy	#STR_FIRQ
 		JRU	fg_print_string
 
-		FG_XY	16,10
-		ldy	#STR_SWI
+		FG_XY	5,25
+		ldy	#STR_A_START_MAIN_MENU
 		JRU	fg_print_string
 
 		FG_XY	5,26
-		ldy	#STR_A_START_MAIN_MENU
+		ldy	#STR_B_START_NMI_TO_MCU
 		JRU	fg_print_string
 
 		clrd
@@ -105,15 +109,37 @@ manual_input_tests:
 		ldd	g_firq_count
 		JRU	fg_print_hex_word
 
-		FG_XY	21,10
-		ldd	g_swi_count
-		JRU	fg_print_hex_word
+		ldb	INPUT_P1
+		comb
+		tfr	b,a
 
-		lda	INPUT_P1
-		coma
+		; only send the nmi to mcu on newly
+		; pressed p1 start + b button, and
+		; not constantly sending it while
+		; pressed
+		anda	#(P1_START + B_BUTTON)
+		cmpa	#(P1_START + B_BUTTON)
+		bne	.p1_start_b_not_pressed
+
+		tst	g_start_b_pressed
+		bne	.skip_clr_start_b_pressed
+
+		lda	#0
+		sta	NMI_TO_MCU
+
+		lda	#1
+		sta	g_start_b_pressed
+		jmp	.skip_clr_start_b_pressed
+
+	.p1_start_b_not_pressed:
+		clr	g_start_b_pressed
+
+	.skip_clr_start_b_pressed:
+
+		tfr	b,a
 		anda	#(P1_START + A_BUTTON)
 		cmpa	#(P1_START + A_BUTTON)
-		bne	.loop_input
+		lbne	.loop_input
 		rts
 
 STR_INPUT_TESTS:		string "INPUT TESTS"
@@ -130,3 +156,4 @@ STR_FIRQ:			string "FIRQ"
 STR_SWI:			string " SWI"
 
 STR_A_START_MAIN_MENU:		string "A+P1 START - MAIN MENU"
+STR_B_START_NMI_TO_MCU:		string "B+P1 START - NMI TO MCU"
