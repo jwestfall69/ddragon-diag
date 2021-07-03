@@ -185,6 +185,7 @@ MAIN_MENU_ITEMS_START:
 	MAIN_MENU_ITEM STR_INPUT_TESTS, manual_input_tests
 	MAIN_MENU_ITEM STR_SOUND_TESTS, manual_sound_tests
 	MAIN_MENU_ITEM STR_MCU_TESTS, manual_mcu_tests
+	MAIN_MENU_ITEM STR_SCROLL_TESTS, manual_scroll_tests
 	MAIN_MENU_ITEM STR_VIDEO_DAC_TESTS, manual_video_dac_tests
 MAIN_MENU_ITEMS_END:
 

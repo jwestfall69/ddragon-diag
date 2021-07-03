@@ -67,6 +67,9 @@ FG_TILES_PER_ROW		equ $40
 REG_BANKSWITCH		equ $3808
 REG_SOUND		equ $380e
 
+REG_SCROLLX		equ $3809
+REG_SCROLLY		equ $380a
+
 SND_COIN		equ $02
 SND_GO			equ $12
 

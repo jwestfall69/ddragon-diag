@@ -12,6 +12,7 @@ OBJS = obj/bg_ram_tests.o \
        obj/pal_ext_ram_tests.o \
        obj/pal_ram_tests.o \
        obj/print_error.o \
+       obj/scroll_tests.o \
        obj/sound_tests.o \
        obj/vector_table.o \
        obj/video_dac_tests.o \
@@ -75,6 +76,9 @@ $(OBJ_DIR)/pal_ram_tests.o: pal_ram_tests.asm $(INCS)
 
 $(OBJ_DIR)/print_error.o: print_error.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) -o $(OBJ_DIR)/print_error.o print_error.asm
+
+$(OBJ_DIR)/scroll_tests.o: scroll_tests.asm $(INCS)
+	$(VASM) $(VASM_FLAGS) -o $(OBJ_DIR)/scroll_tests.o scroll_tests.asm
 
 $(OBJ_DIR)/sound_tests.o: sound_tests.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) -o $(OBJ_DIR)/sound_tests.o sound_tests.asm
