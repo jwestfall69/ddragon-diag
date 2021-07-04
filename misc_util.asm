@@ -90,17 +90,17 @@ input_update:
 		ldw	#$ff
 		JRU	delay
 
-		lda     INPUT_P1
+		lda     REG_P1_INPUT
 		ldx	#g_p1_input_raw
 		ldy	#g_p1_input_edge
 		jsr	input_refresh
 
-		lda	INPUT_P2
+		lda	REG_P2_INPUT
 		ldx	#g_p2_input_raw
 		ldy	#g_p2_input_edge
 		jsr	input_refresh
 
-		lda	INPUT_EXTRA
+		lda	REG_EXTRA_INPUT
 		ldx	#g_extra_input_raw
 		ldy	#g_extra_input_edge
 		jsr	input_refresh
@@ -126,7 +126,7 @@ input_refresh:
 		rts
 
 wait_a_release:
-		lda	INPUT_P1
+		lda	REG_P1_INPUT
 		anda	#A_BUTTON
 		beq	wait_a_release
 		rts
@@ -156,7 +156,7 @@ mcu_run_jru:
 ; code so everyone is right side up, instead of
 ; just being able to hardcode the bit to 0.
 mcu_add_screen_flip_bit:
-		ldb	INPUT_DSW0
+		ldb	REG_DSW0
 		comb
 		bitb	#$80
 		bne	.skip_screen_flip_bit
@@ -169,7 +169,7 @@ mcu_add_screen_flip_bit:
 
 mcu_reset_jru:
 		lda	#$0
-		ldb	INPUT_DSW0
+		ldb	REG_DSW0
 		comb
 		bitb	#$80
 		bne	.skip_screen_flip_bit

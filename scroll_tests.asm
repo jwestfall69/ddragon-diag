@@ -8,14 +8,14 @@
 
 	section text
 
-g_scrollx_offset		equ g_local_vars_start
-g_scrolly_offset		equ g_local_vars_start+2
+g_scroll_x_offset		equ g_local_vars_start
+g_scroll_y_offset		equ g_local_vars_start+2
 
 manual_scroll_tests:
 
 		ldd	#$0
-		std	g_scrollx_offset
-		std	g_scrolly_offset
+		std	g_scroll_x_offset
+		std	g_scroll_y_offset
 
 		jsr	print_static_text
 		jsr	print_dynamic_text
@@ -25,35 +25,35 @@ manual_scroll_tests:
 	.loop_input:
 
 		; scrolling will be handled by raw input
-		lda	INPUT_P1
+		lda	REG_P1_INPUT
 		coma
 
 		bita	#RIGHT
 		beq	.right_not_pressed
-		ldw	g_scrollx_offset
+		ldw	g_scroll_x_offset
 		decw
-		stw	g_scrollx_offset
+		stw	g_scroll_x_offset
 	.right_not_pressed:
 
 		bita	#LEFT
 		beq	.left_not_pressed
-		ldw	g_scrollx_offset
+		ldw	g_scroll_x_offset
 		incw
-		stw	g_scrollx_offset
+		stw	g_scroll_x_offset
 	.left_not_pressed:
 
 		bita	#DOWN
 		beq	.down_not_pressed
-		ldw	g_scrolly_offset
+		ldw	g_scroll_y_offset
 		decw
-		stw	g_scrolly_offset
+		stw	g_scroll_y_offset
 	.down_not_pressed:
 
 		bita	#UP
 		beq	.up_not_pressed
-		ldw	g_scrolly_offset
+		ldw	g_scroll_y_offset
 		incw
-		stw	g_scrolly_offset
+		stw	g_scroll_y_offset
 	.up_not_pressed:
 
 		jsr	input_update
@@ -84,17 +84,17 @@ manual_scroll_tests:
 scroll_update:
 		; start by figuring out scroll high bits
 		; needed on REG_BANKSWITCH
-		ldd	g_scrollx_offset
+		ldd	g_scroll_x_offset
 		jsr	scroll_num_wrap
-		std	g_scrollx_offset
+		std	g_scroll_x_offset
 
 		andd	#$100
 		tfr	a,b
 		exg	d,w
 
-		ldd	g_scrolly_offset
+		ldd	g_scroll_y_offset
 		jsr	scroll_num_wrap
-		std	g_scrolly_offset
+		std	g_scroll_y_offset
 
 		andd	#$100
 		tfr	a,b
@@ -104,7 +104,7 @@ scroll_update:
 		; f should now contain the scroll x/y bits
 		; needed for REG_BANKSWITCH
 		ldb	#$8		; start with mcu not halted/reset
-		lda	INPUT_DSW0
+		lda	REG_DSW0
 		coma
 		bita	#$80
 		bne	.skip_screen_flip_bit
@@ -114,11 +114,11 @@ scroll_update:
 		orr	b,f
 		stf	REG_BANKSWITCH
 
-		ldd	g_scrollx_offset
-		stb	REG_SCROLLX
+		ldd	g_scroll_x_offset
+		stb	REG_SCROLL_X
 
-		ldd	g_scrolly_offset
-		stb	REG_SCROLLY
+		ldd	g_scroll_y_offset
+		stb	REG_SCROLL_Y
 		rts
 
 ; scroll values are only valid between 0 - 0x1ff
@@ -200,11 +200,11 @@ print_static_text:
 		JRU 	fg_print_string
 
 		FG_XY	2,12
-		ldy	#STR_SCROLLX
+		ldy	#STR_SCROLL_X
 		JRU	fg_print_string
 
 		FG_XY	2,13
-		ldy	#STR_SCROLLY
+		ldy	#STR_SCROLL_Y
 		JRU	fg_print_string
 
 		FG_XY	5,25
@@ -218,16 +218,16 @@ print_static_text:
 
 print_dynamic_text:
 		FG_XY	12,12
-		ldd	g_scrollx_offset
+		ldd	g_scroll_x_offset
 		JRU	fg_print_hex_word
 
 		FG_XY	12,13
-		ldd	g_scrolly_offset
+		ldd	g_scroll_y_offset
 		JRU	fg_print_hex_word
 		rts
 
 STR_SCROLL_TESTS:		string "SCROLL TESTS"
 
-STR_SCROLLX:			string "SCROLL X"
-STR_SCROLLY:			string "SCROLL Y"
+STR_SCROLL_X:			string "SCROLL X"
+STR_SCROLL_Y:			string "SCROLL Y"
 STR_JOY_SCROLL:			string "JOY - SCROLL"

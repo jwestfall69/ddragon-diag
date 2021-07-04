@@ -95,7 +95,7 @@ mcu_irq_test:
 		std	g_irq_count
 
 		lda	#$0
-		sta	NMI_TO_MCU
+		sta	REG_MCU
 
 		ldb	#$ff			; don't wait forever
 	.wait_irq:
@@ -130,7 +130,7 @@ mcu_checksum_test:
 		; wait too long
 		ldb	#$ff
 	.wait_bus_available:
-		lda	INPUT_EXTRA
+		lda	REG_EXTRA_INPUT
 		anda	#$10
 		beq	.bus_available
 

@@ -33,17 +33,20 @@ WORK_RAM_ADDRESS_LINES		equ 12
 ; size of each individual palette
 PAL_SIZE			equ $10
 
-ACK_NMI				equ $380b
-ACK_FIRQ			equ $380c
-ACK_IRQ				equ $380d
-NMI_TO_MCU			equ $380f
-
-; input addresses
-INPUT_P1			equ $3800
-INPUT_P2			equ $3801
-INPUT_EXTRA			equ $3802
-INPUT_DSW0			equ $3803
-INPUT_DSW1			equ $3804
+; address registers
+REG_P1_INPUT			equ $3800
+REG_P2_INPUT			equ $3801
+REG_EXTRA_INPUT			equ $3802
+REG_DSW0			equ $3803
+REG_DSW1			equ $3804
+REG_BANKSWITCH			equ $3808
+REG_SCROLL_X			equ $3809
+REG_SCROLL_Y			equ $380a
+REG_NMI_ACK			equ $380b
+REG_FIRQ_ACK			equ $380c
+REG_IRQ_ACK			equ $380d
+REG_MCU				equ $380f
+REG_SOUND			equ $380e
 
 ; buttons
 UP				equ $04
@@ -64,11 +67,6 @@ P2_COIN				equ $80
 ; fg stuff
 FG_TILES_PER_ROW		equ $40
 
-REG_BANKSWITCH		equ $3808
-REG_SOUND		equ $380e
-
-REG_SCROLLX		equ $3809
-REG_SCROLLY		equ $380a
 
 SND_COIN		equ $02
 SND_GO			equ $12

@@ -73,27 +73,27 @@ manual_input_tests:
 	.loop_input:
 
 		FG_XY	6,7
-		lda	INPUT_P1
+		lda	REG_P1_INPUT
 		coma
 		JRU	fg_print_bits_byte
 
 		FG_XY	6,8
-		lda	INPUT_P2
+		lda	REG_P2_INPUT
 		coma
 		JRU	fg_print_bits_byte
 
 		FG_XY	6,9
-		lda	INPUT_EXTRA
+		lda	REG_EXTRA_INPUT
 		coma
 		JRU	fg_print_bits_byte
 
 		FG_XY	6,10
-		lda	INPUT_DSW0
+		lda	REG_DSW0
 		coma
 		JRU	fg_print_bits_byte
 
 		FG_XY	6,11
-		lda	INPUT_DSW1
+		lda	REG_DSW1
 		coma
 		JRU	fg_print_bits_byte
 
@@ -109,7 +109,7 @@ manual_input_tests:
 		ldd	g_firq_count
 		JRU	fg_print_hex_word
 
-		ldb	INPUT_P1
+		ldb	REG_P1_INPUT
 		comb
 		tfr	b,a
 
@@ -125,7 +125,7 @@ manual_input_tests:
 		bne	.skip_clr_start_b_pressed
 
 		lda	#0
-		sta	NMI_TO_MCU
+		sta	REG_MCU
 
 		lda	#1
 		sta	g_start_b_pressed

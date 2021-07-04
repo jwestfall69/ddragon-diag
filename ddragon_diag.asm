@@ -54,7 +54,7 @@ _start:
 		ldb	#'-'
 		JRU	fg_fill_line
 
-		lda	INPUT_EXTRA
+		lda	REG_EXTRA_INPUT
 		anda	#P1_C_BUTTON			; if c button pressed we will skip auto tests
 		beq	auto_work_ram_tests_passed
 
@@ -80,9 +80,9 @@ auto_work_ram_tests_passed:
 		andcc	#$af
 
 		; ack nmi so we start getting them again
-		sta	ACK_NMI
+		sta	REG_NMI_ACK
 
-		lda	INPUT_EXTRA
+		lda	REG_EXTRA_INPUT
 		anda	#P1_C_BUTTON
 		beq	.skip_auto_tests
 

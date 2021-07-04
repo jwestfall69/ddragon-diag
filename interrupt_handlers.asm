@@ -16,7 +16,7 @@ handle_nmi:
 		incd
 		std	g_nmi_count
 		lda	#0
-		sta	ACK_NMI
+		sta	REG_NMI_ACK
 		puls	d
 		rti
 
@@ -26,7 +26,7 @@ handle_irq:
 		incd
 		std	g_irq_count
 		lda	#1
-		sta	ACK_IRQ
+		sta	REG_IRQ_ACK
 		puls	d
 		rti
 
@@ -36,7 +36,7 @@ handle_firq:
 		incd
 		std	g_firq_count
 		lda	#0
-		sta	ACK_FIRQ
+		sta	REG_FIRQ_ACK
 		puls	d
 		rti
 
