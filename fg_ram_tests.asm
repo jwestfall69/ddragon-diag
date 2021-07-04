@@ -50,7 +50,6 @@ manual_fg_ram_tests:
 		sta	g_mt_data_mask
 
 		jsr	mem_tester
-		lda	#1
 		tsta
 		bne	.test_failed
 
