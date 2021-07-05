@@ -17,9 +17,9 @@ handle_nmi:
 		std	g_nmi_count
 		puls	d
 
-		; add a small delay, it seems
-		; if we ack to fast it will
-		; re-trigger the same nmi?
+		; add a small delay, it seems on
+		; hardware if we ack to fast it
+		; will re-trigger the same nmi?
 		pshsw
 		pshs	u
 		ldw	#$1f
