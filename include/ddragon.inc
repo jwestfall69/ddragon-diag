@@ -45,8 +45,8 @@ REG_SCROLL_Y			equ $380a
 REG_NMI_ACK			equ $380b
 REG_FIRQ_ACK			equ $380c
 REG_IRQ_ACK			equ $380d
-REG_MCU				equ $380f
 REG_SOUND			equ $380e
+REG_MCU				equ $380f
 
 ; buttons
 UP				equ $04
@@ -60,7 +60,8 @@ P2_START			equ $80
 
 ; these are on the extra input
 P1_C_BUTTON			equ $02
-P2_C_BUTTON			equ $01
+P2_C_BUTTON			equ $04
+VBLANK				equ $08
 P1_COIN				equ $40
 P2_COIN				equ $80
 

@@ -5,6 +5,7 @@
 
 	global delay_jru
 	global input_update
+	global input_refresh
 	global mcu_halt_jru
 	global mcu_reset_jru
 	global mcu_run_jru
