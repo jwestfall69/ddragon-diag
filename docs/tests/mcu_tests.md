@@ -2,6 +2,8 @@
 ---
 The MCU is the HD63701Y0 chip on the CPU board.  The following 2 tests are done.
 
+![mcu tests](images/mcu_tests.png)
+
 #### NMI/IRQ Test
 The CPU can trigger an NMI on the MCU, when this happens the MCU should trigger
 an IRQ on the CPU.  This test verifies this is working.
