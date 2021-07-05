@@ -15,9 +15,19 @@ handle_nmi:
 		ldd	g_nmi_count
 		incd
 		std	g_nmi_count
-		lda	#0
-		sta	REG_NMI_ACK
 		puls	d
+
+		; add a small delay, it seems
+		; if we ack to fast it will
+		; re-trigger the same nmi?
+		pshsw
+		pshs	u
+		ldw	#$1f
+		JRU	delay
+		puls	u
+		pulsw
+
+		sta	REG_NMI_ACK
 		rti
 
 handle_irq:
