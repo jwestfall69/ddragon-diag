@@ -6,6 +6,10 @@ CPU has access to.
 The CPU doesn't have direct access to ram, like it does with the program roms.
 All access is going to go through multiple 74 series logic ICs.
 
+NOTE: In order to get some easy screen shots of the different errors I just
+forced the error condition in MAME.  If the PAL ram was having an issue on real
+hardware the colors on the screen would not be black/white.
+
 #### Data Lines
 CPU <=> 74LS245 (IC12) <=> 74LS245 (near ram chip) <=> ram
 
@@ -25,7 +29,8 @@ dependent on those ICs.
 * Work ram tests uses different code then all the other ram chips.  It tests the
 same things, but requires special code because we can't use work ram (ie: jsr/rts or
 stack usage is not allowed)
-* PAL extended ram is only 4 bit
+* PAL ram, the upper 4 bits are green, lower 4 bits are red
+* PAL extended ram is only 4 bit, containing blue's 4 bits
 
 #### Automatic vs Manual Tests
 Automatic tests run on boot (unless C is held down) and will run each of the ram
