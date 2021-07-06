@@ -2,7 +2,7 @@
 
 ## Automatic
 These tests are run automatically on startup unless the C button is held down.
-* [Work Ram Tests](tests/work_ram_tests.md)
+* [Work Ram Tests](tests/ram_tests.md)
 * [BG Ram Tests](tests/ram_tests.md)
 * [FG Ram Tests](tests/ram_tests.md)
 * [PAL Ram Tests](tests/ram_tests.md)
