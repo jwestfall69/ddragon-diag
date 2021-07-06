@@ -130,8 +130,8 @@ mem_tester_data:
 		ldb	,x+
 		andb	g_mt_data_mask
 		cmpr	a,b
-		puls	b
 		bne	.test_failed
+		puls	b
 
 		decw
 		bne	.loop_next_address
@@ -147,6 +147,8 @@ mem_tester_data:
 		stx	g_mt_error_address
 		sta	g_mt_error_expected
 		stb	g_mt_error_actual
+		; fix up stack
+		puls	b
 		lda	#1
 		rts
 
