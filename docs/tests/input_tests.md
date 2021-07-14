@@ -49,7 +49,7 @@ An NMI should triggered with every VBlank.  You should expect VBP == NMI.
 
 ### IRQ
 An IRQ is triggered by the MCU.  The MCU will only trigger an IRQ if we first
-send it an NMI.  This can be down by pressing B+P1 Start
+send it an NMI.  This can be done by pressing B+P1 Start
 
 ### FIRQ
 The FIRQ (fast irq) should be triggering once every 1ms, which should be roughly
