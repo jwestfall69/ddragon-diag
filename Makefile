@@ -6,6 +6,7 @@ OBJS = obj/bg_ram_tests.o \
        obj/input_tests.o \
        obj/interrupt_handlers.o \
        obj/mem_tester.o \
+       obj/mem_viewer.o \
        obj/misc_util.o \
        obj/mcu_tests.o \
        obj/obj_ram_tests.o \
