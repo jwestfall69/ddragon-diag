@@ -25,3 +25,4 @@ These are tests available on the main menu
 * [MCU Tests](tests/mcu_tests.md)
 * [Scroll Tests](tests/scroll_tests.md)
 * [Video DAC Tests](tests/video_dac_tests.md)
+* [Mem Viewer Tests](tests/mem_viewer.md)
