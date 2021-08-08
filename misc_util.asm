@@ -26,8 +26,22 @@ ram_fill_jru:
 		bne	ram_fill_jru
 		JRU_RETURN
 
-; setup palette to text is white
+; setup palette so text is white on black background
 palette_init_jru:
+
+		; make all colors be green by default as a poison
+		tfr	u,y
+		lda	#$f0
+		ldx	#PAL_RAM_START
+		ldw	#PAL_RAM_SIZE
+		JRU	ram_fill
+
+		lda	#$00
+		ldx	#PAL_EXT_RAM_START
+		ldw	#PAL_EXT_RAM_SIZE
+		JRU	ram_fill
+		tfr	y,u
+
 		lda	#$ff				; text color
 		sta	(PAL_RAM_START + 2)
 		sta	(PAL_EXT_RAM_START + 2)
