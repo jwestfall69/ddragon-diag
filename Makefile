@@ -1,6 +1,7 @@
 OBJS = obj/bg_ram_tests.o \
        obj/comm_ram_tests.o \
        obj/ddragon_diag.o \
+       obj/error_addresses.o \
        obj/fg_ram_tests.o \
        obj/fg_util.o \
        obj/input_tests.o \

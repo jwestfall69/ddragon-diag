@@ -199,7 +199,9 @@ work_ram_output_failed:
 
 		lda	#EC_WORK_RAM_DEAD_OUTPUT
 		JRU	play_error_code
-		STALL
+
+		lda	#EC_WORK_RAM_DEAD_OUTPUT
+		JRU	loop_error_address
 
 work_ram_writable_failed:
 		FG_XY	0,5
@@ -208,7 +210,9 @@ work_ram_writable_failed:
 
 		lda	#EC_WORK_RAM_UNWRITABLE
 		JRU	play_error_code
-		STALL
+
+		lda	#EC_WORK_RAM_UNWRITABLE
+		JRU	loop_error_address
 
 ; I believe there might be a little risk below
 ; in that we are using the stack register to
@@ -255,7 +259,8 @@ work_ram_data_failed:
 		lda	#EC_WORK_RAM_DATA
 		JRU	play_error_code
 
-		STALL
+		lda	#EC_WORK_RAM_DATA
+		JRU	loop_error_address
 
 work_ram_address_failed:
 
@@ -285,7 +290,8 @@ work_ram_address_failed:
 		lda	#EC_WORK_RAM_ADDRESS
 		JRU	play_error_code
 
-		STALL
+		lda	#EC_WORK_RAM_ADDRESS
+		JRU	loop_error_address
 
 
 ; work ram error strings

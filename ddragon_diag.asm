@@ -74,13 +74,8 @@ auto_work_ram_tests_passed:
 		clr	g_extra_input_edge
 		clr	g_main_menu_cursor
 
-		; at this point we consider work ram good
-		; init stack, enable ints
+		; ram is good, init stack
 		lds	#$0fff
-		andcc	#$af
-
-		; ack nmi so we start getting them again
-		sta	REG_NMI_ACK
 
 		lda	REG_EXTRA_INPUT
 		anda	#P1_C_BUTTON
@@ -108,6 +103,11 @@ auto_work_ram_tests_passed:
 		beq	.loop_wait_a_button
 
 	.skip_auto_tests:
+
+		; enable ints and ack nmi
+		andcc	#$af
+		sta	REG_NMI_ACK
+
 		jsr	main_menu
 		STALL
 
@@ -165,8 +165,11 @@ automatic_tests:
 		jsr	print_error
 		puls	a
 
+		pshs	a
 		JRU	play_error_code
-		STALL
+		puls	a
+
+		JRU	loop_error_address
 		rts
 
 

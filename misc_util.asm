@@ -6,6 +6,7 @@
 	global delay_jru
 	global input_update
 	global input_refresh
+	global loop_error_address_jru
 	global mcu_halt_jru
 	global mcu_reset_jru
 	global mcu_run_jru
@@ -200,3 +201,17 @@ mcu_reset_jru:
 		tfr	x,u
 
 		jmp	mcu_run_jru
+
+; jumps to the correct error address location, which
+; wiil inturn just bra to itself
+; params:
+;  a = error code
+loop_error_address_jru:
+
+		clrb
+		rord
+		rord
+		rord
+		rord
+		ldx	#ERROR_ADDRESS_BASE
+		jmp	d,x
