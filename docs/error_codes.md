@@ -61,3 +61,4 @@ For example, error code 0x1a would have error address of 0xc1a0.
 |  0x1a |     26 | 0001 1010 | 1100 0001 1010 0000      | COMM RAM UNWRITABLE |
 |  0x1b |     27 | 0001 1011 | 1100 0001 1011 0000      | COMM RAM DATA |
 |  0x1c |     28 | 0001 1100 | 1100 0001 1100 0000      | COMM RAM ADDRESS |
+|  0x1d |     29 | 0001 1101 | 1100 0001 1101 0000      | IC12 (245) DEAD OUTPUT |

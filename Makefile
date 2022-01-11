@@ -4,6 +4,7 @@ OBJS = obj/bg_ram_tests.o \
        obj/error_addresses.o \
        obj/fg_ram_tests.o \
        obj/fg_util.o \
+       obj/ic12_tests.o \
        obj/input_tests.o \
        obj/interrupt_handlers.o \
        obj/mem_tester.o \

@@ -3,7 +3,8 @@
 	include "error_codes.inc"
 	include "macros.inc"
 
-	global _start
+	global main
+	global auto_ic12_dead_output_passed
 	global auto_work_ram_tests_passed
 	global STR_ACTUAL
 	global STR_ADDRESS
@@ -18,7 +19,7 @@
 
 	section text
 
-_start:
+main:
 		; make sure f/irqs are disabled
 		orcc	#$50
 
@@ -58,11 +59,13 @@ _start:
 		anda	#P1_C_BUTTON			; if c button pressed we will skip auto tests
 		beq	auto_work_ram_tests_passed
 
-		; jmp to the work ram tests, we can't
-		; use jsr since the work ram/stack maybe
-		; bad
-		jmp	auto_work_ram_tests
+		; jmp to/back for these first 2 tests since
+		; ram might be bad and we can't use the
+		; stack/jsr
+		jmp	auto_ic12_dead_output_test
+auto_ic12_dead_output_passed:
 
+		jmp	auto_work_ram_tests
 auto_work_ram_tests_passed:
 
 		; init ram vars

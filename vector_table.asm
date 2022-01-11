@@ -2,11 +2,11 @@
 	; the end of the rom file
 	section vectors,"rodata"
 
-	word    handle_swi         ; SWI3
-	word    handle_swi         ; SWI2
-	word    handle_firq        ; FIRQ
-	word    handle_irq         ; IRQ
-	word    handle_swi         ; SWI
-	word    handle_nmi         ; NMI
-	word    _start
+	word    handle_swi
+	word    handle_swi
+	word    handle_firq
+	word    handle_irq
+	word    handle_swi
+	word    handle_nmi
+	word    handle_reset
 

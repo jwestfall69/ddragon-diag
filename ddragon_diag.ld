@@ -1,13 +1,19 @@
 MEMORY {
-  ROM: org=0x8000, len=0x4000
+  RESET: org=0x8000, len=0x5d
+  MAIN: org=0x805d, len=0x3fa3
   ERR: org=0xc000, len=0x3ff2
   VEC: org=0xfff2, len=0xe
 }
 
 SECTIONS {
-  .rom: {
+  .reset: {
+    FILL8(0x12);
+    RESERVE(0x5a);
+    *(reset)
+  } >RESET
+  .main: {
     *(text)
-  } >ROM
+  } >MAIN
   .errs: {
     *(errors)
   } >ERR
