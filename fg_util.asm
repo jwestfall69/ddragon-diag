@@ -39,7 +39,7 @@ fg_print_string_jru:
 		subb	#$20
 
 	ifdef _BUILD_DD2
-		; ddragon2 seems to have a gap between numbers and letters
+		; ddragon2 seems to be missing special chars normally between 0-9 and A-Z
 		cmpb	#$21
 		blt	.not_letter
 		subb	#$6
@@ -57,7 +57,7 @@ fg_fill_line_jru:
 		subb	#$20
 
 	ifdef _BUILD_DD2
-		; ddragon2 seems to have a gap between numbers and letters
+		; ddragon2 seems to be missing special chars normally between 0-9 and A-Z
 		cmpb	#$21
 		blt	.not_letter
 		subb	#$6
