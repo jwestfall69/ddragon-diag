@@ -18,7 +18,7 @@ OBJ_RAM_START			equ $2800
 OBJ_RAM_SIZE			equ $200
 OBJ_RAM_ADDRESS_LINES		equ 9
 
-	ifdef DD1
+	ifdef _BUILD_DD1
 PAL_RAM_START			equ $1000
 PAL_EXT_RAM_START		equ $1200
 	else
@@ -34,7 +34,7 @@ PAL_EXT_RAM_ADDRESS_LINES	equ 9
 
 WORK_RAM_START			equ $0000
 
-	ifdef DD1
+	ifdef _BUILD_DD1
 WORK_RAM_SIZE			equ $1000
 WORK_RAM_ADDRESS_LINES		equ 12
 	else
@@ -84,5 +84,5 @@ FG_TILES_PER_ROW		equ $40
 ; the bytes of its internal rom as a checksum
 ; Below is the expected checksum value and
 ; location we can read it from on the main cpu
-MCU_CHECKSUM		equ $84
-MCU_CHECKSUM_LOCATION	equ $2000
+MCU_CHECKSUM			equ $84
+MCU_CHECKSUM_LOCATION		equ $2000
