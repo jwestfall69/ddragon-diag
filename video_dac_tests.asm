@@ -8,6 +8,7 @@
 
 	section text
 
+	ifdef _BUILD_DD1
 ; 4 tiles that are filled with a unique
 ; palette color index
 RED_TILE			equ $062
@@ -21,6 +22,23 @@ RED_TILE_COLOR_INDEX		equ $1
 GREEN_TILE_COLOR_INDEX		equ $3
 BLUE_TILE_COLOR_INDEX		equ $c
 COMBINED_TILE_COLOR_INDEX	equ $e
+
+	else
+; 4 tiles that are filled with a unique
+; palette color index
+RED_TILE			equ $201
+GREEN_TILE			equ $223
+BLUE_TILE			equ $207
+COMBINED_TILE			equ $229
+
+; color index in each palette for the
+; fgiven tile
+RED_TILE_COLOR_INDEX		equ $7
+GREEN_TILE_COLOR_INDEX		equ $3
+BLUE_TILE_COLOR_INDEX		equ $5
+COMBINED_TILE_COLOR_INDEX	equ $9
+
+	endif
 
 manual_video_dac_tests:
 		jsr	fg_clear_with_header

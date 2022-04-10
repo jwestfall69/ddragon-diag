@@ -37,6 +37,14 @@ fg_print_string_jru:
 		ldb	,y+
 	.loop_next_char:
 		subb	#$20
+
+	ifdef _BUILD_DD2
+		; ddragon2 seems to have a gap between numbers and letters
+		cmpb	#$21
+		blt	.not_letter
+		subb	#$6
+	.not_letter:
+	endif
 		std	,x++
 		ldb	,y+
 		bne	.loop_next_char
@@ -47,6 +55,14 @@ fg_print_string_jru:
 fg_fill_line_jru:
 		lda	#0
 		subb	#$20
+
+	ifdef _BUILD_DD2
+		; ddragon2 seems to have a gap between numbers and letters
+		cmpb	#$21
+		blt	.not_letter
+		subb	#$6
+	.not_letter:
+	endif
 		ldy	#$20
 	.loop_next_column:
 		std	,x++
@@ -104,7 +120,12 @@ fg_print_hex_byte_jru:
 		addf	#$10		; base tile offset to get us to '0'
 		cmpf	#$19
 		ble	.is_digit
+
+	ifdef _BUILD_DD1
 		addf	#$7		; extra tile offset for a-f letters
+	else
+		addf	#$1		; extra tile offset for a-f letters
+	endif
 
 	.is_digit:
 		stw	,x
@@ -140,7 +161,12 @@ fg_print_hex_word_jru:
 		addf	#$10		; base tile offset to get us to '0'
 		cmpf	#$19
 		ble	.is_digit
+
+	ifdef _BUILD_DD1
 		addf	#$7		; extra tile offset for a-f letters
+	else
+		addf	#$1		; extra tile offset for a-f letters
+	endif
 
 	.is_digit:
 		stw	,x

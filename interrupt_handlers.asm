@@ -65,22 +65,3 @@ handle_swi:
 		puls	d
 		rti
 
-
-
-STR_HEADER:			string " DOUBLE DRAGON DIAG - 00 - ACK"
-
-STR_ALL_TESTS_PASSED:		string "ALL TESTS PASSED"
-STR_A_MAIN_MENU:		string "PRESS A FOR MAIN MENU"
-
-; misc strings
-STR_ACTUAL:			string "ACTUAL"
-STR_ADDRESS:			string "ADDRESS"
-STR_EXPECTED:			string "EXPECTED"
-STR_VALUE:			string "VALUE"
-STR_PASSES:			string "PASSES"
-
-; work ram error strings
-STR_WORK_RAM_DEAD_OUTPUT:	string "WORK RAM DEAD OUTPUT"
-STR_WORK_RAM_UNWRITABLE:	string "WORK RAM UNWRITABLE"
-STR_WORK_RAM_DATA:		string "WORK RAM DATA"
-STR_WORK_RAM_ADDRESS:		string "WORK RAM ADDRESS"

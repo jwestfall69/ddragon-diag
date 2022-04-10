@@ -1,0 +1,49 @@
+OBJS = obj/ddragon2-diag/bg_ram_tests.o \
+       obj/ddragon2-diag/comm_ram_tests.o \
+       obj/ddragon2-diag/ddragon_diag.o \
+       obj/ddragon2-diag/error_addresses.o \
+       obj/ddragon2-diag/fg_ram_tests.o \
+       obj/ddragon2-diag/fg_util.o \
+       obj/ddragon2-diag/input_tests.o \
+       obj/ddragon2-diag/interrupt_handlers.o \
+       obj/ddragon2-diag/mem_tester.o \
+       obj/ddragon2-diag/mem_viewer.o \
+       obj/ddragon2-diag/misc_util.o \
+       obj/ddragon2-diag/obj_ram_tests.o \
+       obj/ddragon2-diag/pal_ext_ram_tests.o \
+       obj/ddragon2-diag/pal_ram_tests.o \
+       obj/ddragon2-diag/print_error.o \
+       obj/ddragon2-diag/scroll_tests.o \
+       obj/ddragon2-diag/sound_tests.o \
+       obj/ddragon2-diag/vector_table.o \
+       obj/ddragon2-diag/video_dac_tests.o \
+       obj/ddragon2-diag/work_ram_tests.o
+
+INCS = include/ddragon.inc include/ddragon_diag.inc include/error_codes.inc \
+       include/macros.inc
+
+VASM = vasm6809_oldstyle
+VASM_FLAGS = -Fvobj -6309 -D_BUILD_DD2 -chklabels -Iinclude -quiet
+VLINK = vlink
+VLINK_FLAGS = -brawbin1 -Tddragon_diag.ld
+OUTPUT_DIR = bin
+OBJ_DIR = obj/ddragon2-diag
+MKDIR = mkdir
+
+$(OUTPUT_DIR)/ddragon2-diag.bin: $(OBJ_DIR) $(OUTPUT_DIR) $(OBJS)
+	$(VLINK) $(VLINK_FLAGS) -o $(OUTPUT_DIR)/ddragon2-diag.bin $(OBJS)
+	@echo
+	@ls -l $(OUTPUT_DIR)/ddragon2-diag.bin
+
+$(OBJ_DIR)/%.o: %.asm $(INCS)
+	$(VASM) $(VASM_FLAGS) -o $@ $<
+
+$(OUTPUT_DIR):
+	$(MKDIR) $(OUTPUT_DIR)
+
+$(OBJ_DIR):
+	$(MKDIR) -p $(OBJ_DIR)
+
+clean:
+	rm -f $(OUTPUT_DIR)/ddragon2-diag.bin $(OBJ_DIR)/*.o
+

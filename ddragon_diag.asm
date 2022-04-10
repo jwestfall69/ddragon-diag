@@ -4,7 +4,11 @@
 	include "macros.inc"
 
 	global main
+
+	ifdef _BUILD_DD1
 	global auto_ic12_dead_output_passed
+	endif
+
 	global auto_work_ram_tests_passed
 	global STR_ACTUAL
 	global STR_ADDRESS
@@ -33,10 +37,15 @@ main:
 		ldw	#$1fff
 		JRU	delay
 
-		; zero out pal/pal ext and fg ram, which are adjacent
+		; zero out pal/pal ext, which are adjacent
 		lda	#0
 		ldx	#PAL_RAM_START
-		ldw	#(PAL_RAM_SIZE + PAL_EXT_RAM_SIZE + FG_RAM_SIZE)
+		ldw	#(PAL_RAM_SIZE + PAL_EXT_RAM_SIZE)
+		JRU	ram_fill
+
+		lda	#0
+		ldx	#FG_RAM_START
+		ldw	#FG_RAM_SIZE
 		JRU	ram_fill
 
 		; zero out bg and sprite ram, which are adjacent
@@ -62,8 +71,10 @@ main:
 		; jmp to/back for these first 2 tests since
 		; ram might be bad and we can't use the
 		; stack/jsr
+	ifdef _BUILD_DD1
 		jmp	auto_ic12_dead_output_test
 auto_ic12_dead_output_passed:
+	endif
 
 		jmp	auto_work_ram_tests
 auto_work_ram_tests_passed:
@@ -86,7 +97,7 @@ auto_work_ram_tests_passed:
 
 		jsr	automatic_tests
 
-		lda	#$0c
+		lda	#SND_ALL_TESTS_PASSED
 		sta	REG_SOUND
 
 		jsr	fg_clear_with_header
@@ -190,7 +201,9 @@ MAIN_MENU_ITEMS_START:
 	MAIN_MENU_ITEM STR_COMM_RAM_TESTS, manual_comm_ram_tests
 	MAIN_MENU_ITEM STR_INPUT_TESTS, manual_input_tests
 	MAIN_MENU_ITEM STR_SOUND_TESTS, manual_sound_tests
+	ifdef _BUILD_DD1
 	MAIN_MENU_ITEM STR_MCU_TESTS, manual_mcu_tests
+	endif
 	MAIN_MENU_ITEM STR_SCROLL_TESTS, manual_scroll_tests
 	MAIN_MENU_ITEM STR_VIDEO_DAC_TESTS, manual_video_dac_tests
 	MAIN_MENU_ITEM STR_MEM_VIEWER, manual_mem_viewer
@@ -300,7 +313,11 @@ main_menu_draw:
 		rts
 
 
+	ifdef _BUILD_DD1
 STR_HEADER:			string " DOUBLE DRAGON DIAG - 00 - ACK"
+	else
+STR_HEADER:			string "DOUBLE DRAGON 2 DIAG - 00 - ACK"
+	endif
 
 STR_ALL_TESTS_PASSED:		string "ALL TESTS PASSED"
 STR_A_MAIN_MENU:		string "PRESS A FOR MAIN MENU"

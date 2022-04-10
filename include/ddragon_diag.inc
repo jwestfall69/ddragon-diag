@@ -39,3 +39,13 @@ MT_ERROR_DATA			equ $03
 MT_ERROR_ADDRESS		equ $04
 
 ERROR_ADDRESS_BASE		equ $c000
+
+	ifdef _BUILD_DD1
+SND_ALL_TESTS_PASSED		equ $0c
+SND_HIGH			equ $12
+SND_LOW				equ $02
+	else
+SND_ALL_TESTS_PASSED		equ $0e
+SND_HIGH			equ $10
+SND_LOW				equ $12
+	endif

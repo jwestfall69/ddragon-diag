@@ -18,17 +18,29 @@ OBJ_RAM_START			equ $2800
 OBJ_RAM_SIZE			equ $200
 OBJ_RAM_ADDRESS_LINES		equ 9
 
+	ifdef DD1
 PAL_RAM_START			equ $1000
+PAL_EXT_RAM_START		equ $1200
+	else
+PAL_RAM_START			equ $3c00
+PAL_EXT_RAM_START		equ $3e00
+	endif
+
 PAL_RAM_SIZE			equ $200
 PAL_RAM_ADDRESS_LINES		equ 9
 
-PAL_EXT_RAM_START		equ $1200
 PAL_EXT_RAM_SIZE		equ $200
 PAL_EXT_RAM_ADDRESS_LINES	equ 9
 
 WORK_RAM_START			equ $0000
+
+	ifdef DD1
 WORK_RAM_SIZE			equ $1000
 WORK_RAM_ADDRESS_LINES		equ 12
+	else
+WORK_RAM_SIZE			equ $1800
+WORK_RAM_ADDRESS_LINES		equ 13
+	endif
 
 ; size of each individual palette
 PAL_SIZE			equ $10
@@ -67,10 +79,6 @@ P2_COIN				equ $80
 
 ; fg stuff
 FG_TILES_PER_ROW		equ $40
-
-
-SND_COIN		equ $02
-SND_GO			equ $12
 
 ; When the mcu starts it will sum up all 
 ; the bytes of its internal rom as a checksum

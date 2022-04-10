@@ -21,11 +21,11 @@ manual_sound_tests:
 		JRU	fg_print_string
 
 		FG_XY	2,19
-		ldy	#STR_02_12_FM
+		ldy	#STR_FM_RANGE
 		JRU	fg_print_string
 
 		FG_XY	2,20
-		ldy	#STR_80_BA_PCM
+		ldy	#STR_PCM_RANGE
 		JRU	fg_print_string
 
 		FG_XY	2,23
@@ -44,7 +44,11 @@ manual_sound_tests:
 		ldy	#STR_C_MAIN_MENU
 		JRU	fg_print_string
 
+	ifdef _BUILD_DD1
 		ldb	#2		; sound number; start at 2 as 0/1 aren't valid
+	else
+		ldb	#1
+	endif
 
 	.loop_input:
 		jsr	input_update
@@ -77,13 +81,23 @@ manual_sound_tests:
 
 		bita	#B_BUTTON
 		beq	.b_not_pressed
-		lde	REG_SOUND		; reading will cause sound to stop
+	ifdef _BUILD_DD1
+		lde	REG_SOUND		; reading should stop sound on ddragon
+	else
+		lde	#0
+		ste	REG_SOUND		; writing 0 should stop sound on ddragon2
+	endif
 	.b_not_pressed:
 
 		lda	g_extra_input_edge
 		bita	#$2
 		beq	.c_not_pressed
-		lde	REG_SOUND
+	ifdef _BUILD_DD1
+		lde	REG_SOUND		; reading should stop sound on ddragon
+	else
+		lde	#0
+		ste	REG_SOUND		; writing 0 should stop sound on ddragon2
+	endif
 		rts
 
 	.c_not_pressed:
@@ -101,8 +115,14 @@ manual_sound_tests:
 STR_SOUND_TESTS:		string "SOUND TESTS"
 
 STR_SND_NUM:			string "SND NUMBER "
-STR_02_12_FM:			string "02 TO 12 ARE FM"
-STR_80_BA_PCM:			string "80 TO BA ARE PCM"
+
+	ifdef _BUILD_DD1
+STR_FM_RANGE:			string "02 TO 12 ARE FM"
+STR_PCM_RANGE:			string "80 TO BA ARE PCM"
+	else
+STR_FM_RANGE:			string "01 TO 0F ARE FM"
+STR_PCM_RANGE:			string "10 TO XX ARE PCM"
+	endif
 
 STR_JOY_CHANGE:			string "JOY - CHANGE SOUND NUMBER"
 STR_A_PLAY:			string "A - PLAY SOUND"

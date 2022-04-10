@@ -43,9 +43,22 @@ palette_init_jru:
 		JRU	ram_fill
 		tfr	y,u
 
+
+	ifdef _BUILD_DD1
 		lda	#$ff				; text color
 		sta	(PAL_RAM_START + 2)
 		sta	(PAL_EXT_RAM_START + 2)
+
+	else
+		; ddragon2 text has a shadow on it, make
+		; the text be white and shadow be gray
+		lda	#$ff				; text color
+		sta	(PAL_RAM_START + 10)
+		sta	(PAL_EXT_RAM_START + 10)
+		lda	#$77				; shadow
+		sta	(PAL_RAM_START + 7)
+		sta	(PAL_EXT_RAM_START + 7)
+	endif
 
 		lda	#$0
 		sta	(PAL_RAM_START + 256)		; back ground color
@@ -80,10 +93,10 @@ play_error_code_jru:
 	.loop_next_bit:
 		lsla
 		bcc	.is_zero
-		ldb	#SND_GO
+		ldb	#SND_HIGH
 		jmp	.play_sound
 	.is_zero:
-		ldb	#SND_COIN
+		ldb	#SND_LOW
 
 	.play_sound:
 		stb	REG_SOUND
