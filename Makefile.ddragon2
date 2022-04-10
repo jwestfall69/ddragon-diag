@@ -6,6 +6,7 @@ OBJS = obj/ddragon2-diag/bg_ram_tests.o \
        obj/ddragon2-diag/fg_util.o \
        obj/ddragon2-diag/input_tests.o \
        obj/ddragon2-diag/interrupt_handlers.o \
+       obj/ddragon2-diag/mcu_tests.o \
        obj/ddragon2-diag/mem_tester.o \
        obj/ddragon2-diag/mem_viewer.o \
        obj/ddragon2-diag/misc_util.o \

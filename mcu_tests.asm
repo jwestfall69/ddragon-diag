@@ -29,9 +29,11 @@ manual_mcu_tests:
 		ldy	#STR_IRQ_TEST
 		JRU	fg_print_string
 
+	ifdef _BUILD_DD1
 		FG_XY	4,9
 		ldy	#STR_CHECKSUM
 		JRU	fg_print_string
+	endif
 
 		JRU	mcu_reset
 		JRU	mcu_run
@@ -46,6 +48,7 @@ manual_mcu_tests:
 		FG_XY	15,8
 		JRU	fg_print_string
 
+	ifdef _BUILD_DD1
 		ldy	#STR_PASS
 		jsr	mcu_checksum_test
 		tsta
@@ -70,6 +73,7 @@ manual_mcu_tests:
 	.print_checksum_test:
 		FG_XY	15,9
 		JRU	fg_print_string
+	endif
 
 	.loop_input:
 		jsr	input_update
