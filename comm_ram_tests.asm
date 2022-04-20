@@ -103,6 +103,8 @@ manual_comm_ram_tests:
 		FG_XY	12,12
 		JRU	fg_print_hex_word
 
+		JRU	mcu_run
+
 		jsr	wait_c_press
 		rts
 
