@@ -4,11 +4,7 @@
 	include "macros.inc"
 
 	global main
-
-	ifdef _BUILD_DD1
-	global auto_ic12_dead_output_passed
-	endif
-
+	global auto_main_245_dead_output_passed
 	global auto_work_ram_tests_passed
 	global STR_ACTUAL
 	global STR_ADDRESS
@@ -71,10 +67,8 @@ main:
 		; jmp to/back for these first 2 tests since
 		; ram might be bad and we can't use the
 		; stack/jsr
-	ifdef _BUILD_DD1
-		jmp	auto_ic12_dead_output_test
-auto_ic12_dead_output_passed:
-	endif
+		jmp	auto_main_245_dead_output_test
+auto_main_245_dead_output_passed:
 
 		jmp	auto_work_ram_tests
 auto_work_ram_tests_passed:

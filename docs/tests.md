@@ -2,7 +2,7 @@
 
 ## Automatic
 These tests are run automatically on startup unless the C button is held down.
-* [IC12 Dead Output Test](tests/ic12_dead_output_test.md)
+* [Main 245 Dead Output Test](tests/main_245_dead_output_test.md)
 * [Work Ram Tests](tests/ram_tests.md)
 * [BG Ram Tests](tests/ram_tests.md)
 * [FG Ram Tests](tests/ram_tests.md)

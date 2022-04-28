@@ -33,6 +33,6 @@ EC_COMM_RAM_UNWRITABLE		equ $1a
 EC_COMM_RAM_DATA		equ $1b
 EC_COMM_RAM_ADDRESS		equ $1c
 
-EC_IC12_DEAD_OUTPUT             equ $1d
+EC_MAIN_245_DEAD_OUTPUT		equ $1d
 
 EC_INVALID			equ $ff

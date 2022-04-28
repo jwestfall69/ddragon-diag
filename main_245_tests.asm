@@ -3,22 +3,27 @@
 	include "error_codes.inc"
 	include "macros.inc"
 
-	global auto_ic12_dead_output_test
+	global auto_main_245_dead_output_test
 
 	section text
 
 
 
-; ic12 is a 74ls245 that sits between the cpu's data
-; bus and everything except for the program roms.
-; This test will see if that ic has dead output
-; towards the cpu.
-IC12_TEST_ADDRESSES_START:
+; On both ddragon|2 boards there is a single 74ls245
+; thats the bus transceiver between the cpu's data
+; lines and everything besides the ROMs.
+;
+; ddragon  its at IC12
+; ddragon2 its at IC62
+;
+; this test checks if that 245 has dead output
+
+MAIN_245_TEST_ADDRESSES_START:
 	word	BG_RAM_START, COMM_RAM_START, FG_RAM_START, OBJ_RAM_START
 	word	PAL_RAM_START, PAL_EXT_RAM_START, WORK_RAM_START
-IC12_TEST_ADDRESSES_END:
+MAIN_245_TEST_ADDRESSES_END:
 
-auto_ic12_dead_output_test:
+auto_main_245_dead_output_test:
 
 		; the 6809 does dummy memory reads of 0xffff
 		; when its doesnt need to access the address bus.
@@ -28,8 +33,8 @@ auto_ic12_dead_output_test:
 		; from the vector table.
 		lda	$ffff
 
-		ldy	#IC12_TEST_ADDRESSES_START
-		lde	#((IC12_TEST_ADDRESSES_END - IC12_TEST_ADDRESSES_START)/2)
+		ldy	#MAIN_245_TEST_ADDRESSES_START
+		lde	#((MAIN_245_TEST_ADDRESSES_END - MAIN_245_TEST_ADDRESSES_START)/2)
 
 	.loop_next_address:
 		ldb	[,y]
@@ -39,20 +44,24 @@ auto_ic12_dead_output_test:
 		dece
 		bne	.loop_next_address
 
-		; if ic12 is dead its unlikely we will be able
+		; if the 245 is dead its unlikely we will be able
 		; to draw on screen or send a byte to the sound
 		; cpu, but do it anyways.
 		FG_XY	0,5
-		ldy	#STR_IC12_DEAD_OUTPUT
+		ldy	#STR_MAIN_245_DEAD_OUTPUT
 		JRU	fg_print_string
 
-		lda	#EC_IC12_DEAD_OUTPUT
+		lda	#EC_MAIN_245_DEAD_OUTPUT
 		JRU	play_error_code
 
-		lda	#EC_IC12_DEAD_OUTPUT
+		lda	#EC_MAIN_245_DEAD_OUTPUT
 		JRU	loop_error_address
 
 	.test_passed:
-		jmp	auto_ic12_dead_output_passed
+		jmp	auto_main_245_dead_output_passed
 
-STR_IC12_DEAD_OUTPUT:		string "IC12 DEAD OUTPUT"
+	ifdef _BUILD_DD1
+STR_MAIN_245_DEAD_OUTPUT:	string "IC12 DEAD OUTPUT"
+	else
+STR_MAIN_245_DEAD_OUTPUT:	string "IC62 DEAD OUTPUT"
+	endif

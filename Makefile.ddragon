@@ -4,13 +4,13 @@ OBJS = obj/ddragon-diag/bg_ram_tests.o \
        obj/ddragon-diag/error_addresses.o \
        obj/ddragon-diag/fg_ram_tests.o \
        obj/ddragon-diag/fg_util.o \
-       obj/ddragon-diag/ic12_tests.o \
        obj/ddragon-diag/input_tests.o \
        obj/ddragon-diag/interrupt_handlers.o \
+       obj/ddragon-diag/main_245_tests.o \
+       obj/ddragon-diag/mcu_tests.o \
        obj/ddragon-diag/mem_tester.o \
        obj/ddragon-diag/mem_viewer.o \
        obj/ddragon-diag/misc_util.o \
-       obj/ddragon-diag/mcu_tests.o \
        obj/ddragon-diag/obj_ram_tests.o \
        obj/ddragon-diag/pal_ext_ram_tests.o \
        obj/ddragon-diag/pal_ram_tests.o \

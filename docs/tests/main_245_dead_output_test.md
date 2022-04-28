@@ -1,8 +1,12 @@
-# IC12 Dead Output Test
+# Main 245 Dead Output Test
 ---
-IC12 is a 74LS245 IC that sits between the CPU's data bus and everything except
+On both double dragon and double dragon 2 there is a single 74LS245 IC that
+acts the bus transceiver between the CPU's data bus and everything except
 the program roms.  This test checks to see if that IC has dead output towards
 the CPU.
+
+Double Dragon its IC12
+Double Dragon 2 its IC62
 
 Detecting dead output on the 6309/6809 is somewhat interesting.  When the CPU
 isn't actively doing anything on the address bus it does dummy reads of
@@ -17,5 +21,5 @@ with 0x5a it will trigger the error.
 
 If this test fails the diag rom will still attempt to display the error and
 trigger the beep code, however neither of those are likely to work given they
-depend on IC12.  To detect this error you will have to rely on the error
+depend on 74LS245.  To detect this error you will have to rely on the error
 address being 0xc1d0.
