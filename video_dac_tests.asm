@@ -17,7 +17,7 @@ BLUE_TILE			equ $2e6
 COMBINED_TILE			equ $105
 
 ; color index in each palette for the
-; fgiven tile
+; given tile
 RED_TILE_COLOR_INDEX		equ $1
 GREEN_TILE_COLOR_INDEX		equ $3
 BLUE_TILE_COLOR_INDEX		equ $c
@@ -26,17 +26,17 @@ COMBINED_TILE_COLOR_INDEX	equ $e
 	else
 ; 4 tiles that are filled with a unique
 ; palette color index
-RED_TILE			equ $201
-GREEN_TILE			equ $223
-BLUE_TILE			equ $207
-COMBINED_TILE			equ $229
+RED_TILE			equ $1ff
+GREEN_TILE			equ $4e3
+BLUE_TILE			equ $68e
+COMBINED_TILE			equ $49e
 
 ; color index in each palette for the
-; fgiven tile
+; given tile
 RED_TILE_COLOR_INDEX		equ $7
-GREEN_TILE_COLOR_INDEX		equ $3
+GREEN_TILE_COLOR_INDEX		equ $1
 BLUE_TILE_COLOR_INDEX		equ $5
-COMBINED_TILE_COLOR_INDEX	equ $9
+COMBINED_TILE_COLOR_INDEX	equ $2
 
 	endif
 
